@@ -16,8 +16,9 @@ class Login extends CI_Controller{
 
     public function index(){
         $data['ruta'] = 'Login';
+        $data['titulo'] = 'Inicio Sessión';
         
-        $this->load->view('layouts/header');
+        $this->load->view('layouts/header',$data);
         $this->load->view('login_view');
         $this->load->view('layouts/footer',$data);
         
@@ -26,8 +27,8 @@ class Login extends CI_Controller{
     public function process(){
         header('Content-type: application/json; charset=utf-8');
         
-        $this->form_validation->set_rules('password', 'Password', 'required|min_length[4]|max_length[20]', array('required' => 'Completa el Campo %s.'));
-        $this->form_validation->set_rules('email', 'Email', 'required', array('required' => 'Completa el Campo %s.'));
+        $this->form_validation->set_rules('password', 'Contraseña', 'required|min_length[4]|max_length[20]');
+        $this->form_validation->set_rules('email', 'Email', 'required');
 
         // Load our view to be displayed
         // to the userif ($this->form_validation->run() == FALSE){
@@ -53,7 +54,7 @@ class Login extends CI_Controller{
             }else{
                 // If user did validate, 
                 // Send them to members area
-                $info = array('error'=>0, 'ruta' =>  base_url().'index.php/home');
+                $info = array('error'=>0, 'ruta' =>  base_url().'index.php/perfil');
                 echo json_encode($info);
                 
             }   
@@ -65,7 +66,7 @@ class Login extends CI_Controller{
 
     private function check_isvalidated(){
         if($this->session->userdata('validated')){
-            redirect('index.php/home');
+            redirect('index.php/perfil');
         }
     }
 }

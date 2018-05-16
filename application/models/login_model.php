@@ -24,8 +24,9 @@ class Login_model extends CI_Model{
             // If there is a user, then create session data
             $row = $query->row();
             $data = array(
+                    'idUsuario' => $row->idUsuario,
                     'nombre' => $row->nombre,
-                    'rut' => $row->rut,
+                    'empresa' => $row->empresa,
                     'validated' => true
                 );
             $this->session->set_userdata($data);
