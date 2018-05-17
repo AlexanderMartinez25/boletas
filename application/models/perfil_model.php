@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*  Description: Usuario model class
+/*  Description: Perfil model class
  */
-class Usuario_model extends CI_Model{
+class Perfil_model extends CI_Model{
     function __construct(){
         parent::__construct();
         $this->load->database();
@@ -13,7 +13,10 @@ class Usuario_model extends CI_Model{
         $this->db->select('*');
         $this->db->from('usuarios');
         $this->db->where('idUsuario', $this->session->userdata('idUsuario'));
-        $this->db->join('regiones', 'regiones.region_id = usuarios.region', 'inner');// Run the query
+        $this->db->join('regiones', 'regiones.region_id = usuarios.region', 'inner');
+        $this->db->join('provincias', 'provincias.region_id = regiones.region_id', 'inner');
+        $this->db->join('comunas', 'comunas.provincia_id = provincias.provincia_id', 'inner');
+        // Run the query
         $query = $this->db->get();
         $row = $query->row();
 
@@ -25,7 +28,12 @@ class Usuario_model extends CI_Model{
                 'empresa' => $row->empresa,
                 'email' => $row->email,
                 'telefono' => $row->telefono,
-                'region' => $row->region_nombre,
+                'cod_region' => $row->region,
+                'region_nombre' => $row->region_nombre,
+                'cod_provincia' => $row->provincia,
+                'provincia_nombre' => $row->provincia_nombre,
+                'cod_comuna' => $row->comuna,
+                'comuna_nombre' => $row->comuna_nombre,
                 'provincia' => $row->provincia,
                 'comuna' => $row->comuna,
                 'calle' => $row->calle,
@@ -34,6 +42,21 @@ class Usuario_model extends CI_Model{
                 
             );
         return $data;
+    }
+
+    public function get_provincias($id=null){
+
+        if ($id){
+            $this->db->where('region_id', $id);
+        }
+        $query = $this->db->get('provincias');
+        return $row = $query->result();
+    }
+
+    public function get_comunas($id){
+        $this->db->where('provincia_id', $id);
+        $query = $this->db->get('comunas');
+        return $row = $query->result();
     }
 
     public function update(){

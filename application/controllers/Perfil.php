@@ -6,7 +6,7 @@
     function __construct(){
         parent::__construct();
         $this->_check_isvalidated();
-        $this->load->model('usuario_model');
+        $this->load->model('perfil_model');
         /* Load form helper */ 
         $this->load->helper(array('form'));
 
@@ -19,8 +19,9 @@
     public function index(){
         $data['ruta'] = 'Perfil';
         $data['titulo'] = 'Perfil';
-        $data['datos_perfil'] = $this->usuario_model->get_profile_data();
-
+        $data['datos_perfil'] = $this->perfil_model->get_profile_data();
+        $data['regiones'] = $this->perfil_model->get_provincias(0);
+        
         $this->load->view('layouts/header',$data);
         $this->load->view('layouts/sidebar',$data);
         $this->load->view('usuario/perfil_view',$data);
@@ -46,10 +47,8 @@
             echo json_encode($info);
 
         }else{
-            // cargamos el modelo
-            $this->load->model('usuario_model');
             // Validate the user can login
-            $result = $this->usuario_model->update();
+            $result = $this->perfil_model->update();
 
             // si $result = 1, se actualizaron los datos 
             $info = array('error'=>0, 'updated' => $result);
@@ -57,15 +56,26 @@
         }
     }
 
+    public function provincias ($id){
+        
+        $result = $this->perfil_model->get_provincias($id);
+        header('Content-type: application/json; charset=utf-8');
+        echo json_encode($result);
+        
+    }
+
+    public function comunas ($id){
+        
+        $result = $this->perfil_model->get_comunas($id);
+        header('Content-type: application/json; charset=utf-8');
+        echo json_encode($result);
+        
+    }
     private function _check_isvalidated(){
         if(! $this->session->userdata('validated')){
-            redirect('index.php/login');
+            redirect('/login');
         }
     }
 
-    public function logout(){
-        $this->session->sess_destroy();
-        redirect('index.php/login');
-    }
  }
  ?>

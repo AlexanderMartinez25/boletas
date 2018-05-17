@@ -15,14 +15,14 @@
                 
 
                 <div class="ibox-content">
-                    <form method='post' role="form" action="<?php echo base_url();?>index.php/perfil/process" id="perfilForm">
+                    <form method='post' role="form" action="<?php echo base_url();?>/perfil/process" id="perfilForm">
                         <?php 
                             echo validation_errors(); 
                             echo form_open('form'); 
                         ?>
                         <div class="row">
+
                             <div id="resp"></div>  
-                            
                             <div class="col-sm-4 b-r">
                                 <div class="form-group">
                                     <label>Nombre <i class="fa fa-info-circle text-warning"></i></label> 
@@ -59,23 +59,26 @@
                                     <label>Región <i class="fa fa-info-circle text-warning"></i></label>
                                     <select name="region" id="region" class="form-control">
                                         <option value="">Seleccione</option>
-                                        <option value=""><?= $datos_perfil['region']?></option>
+                                        <option value="<?= $datos_perfil['cod_region']?>"><?= $datos_perfil['region_nombre']?></option>
+                                        <?= var_dump($regiones['1'])?>
                                     </select>
                                 </div>
                                 <div class="hr-line-dashed"></div>
 
                                 <div class="form-group">
                                     <label>Provincia <i class="fa fa-info-circle text-warning"></i></label> 
-                                    <select name="provincia" id="provincia" disabled="disabled" class="form-control">
-                                        <option value=""></option>
+                                    <select name="provincia" id="provincia" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <option value="<?= $datos_perfil['cod_provincia']?>"><?= $datos_perfil['provincia_nombre']?></option>
                                     </select>
                                 </div>
                                 <div class="hr-line-dashed"></div>
 
                                 <div class="form-group">
                                     <label>Comuna <i class="fa fa-info-circle text-warning"></i></label> 
-                                    <select name="comuna" id="comuna" disabled="disabled" class="form-control">
-                                        <option value=""></option>
+                                    <select name="comuna" id="comuna" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <option value="<?= $datos_perfil['cod_comuna']?>"><?= $datos_perfil['comuna_nombre']?></option>
                                     </select>
                                 </div>
                             </div>
@@ -99,7 +102,7 @@
 
                             </div>
                             <div class="col-sm-12">
-                                <button class="ladda-button ladda-button-demo btn btn-primary pull-right" type="submit"><strong>Actualizar</strong></button>
+                                <button class="ladda-button ladda-button-demo btn btn-primary pull-right" data-style="zoom-in" type="submit"><strong>Actualizar</strong></button>
                             </div>
                             
                         </div>

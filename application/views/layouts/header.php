@@ -5,11 +5,13 @@
 
     <title>VMC Tecnología | <?= $titulo;?></title>
 
-    <link href="<?php echo base_url('assets/html/css/bootstrap.min.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/html/font-awesome/css/font-awesome.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/html/css/style.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/html/css/animate.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('../assets/html/css/bootstrap.min.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('../assets/html/font-awesome/css/font-awesome.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('../assets/html/css/style.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('../assets/html/css/animate.css');?>" rel="stylesheet">
+    <!-- loading button -->
+    <link href="<?php echo base_url('../assets/html/css/plugins/ladda/ladda-themeless.min.css');?>" rel="stylesheet">
     <!-- Input Mask-->
-    <link href="<?php echo base_url('assets/html/css/plugins/jasny/jasny-bootstrap.min.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('../assets/html/css/plugins/jasny/jasny-bootstrap.min.css');?>" rel="stylesheet">
 
 </head>

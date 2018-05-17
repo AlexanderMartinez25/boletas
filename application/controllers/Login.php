@@ -5,7 +5,7 @@ class Login extends CI_Controller{
     
     function __construct(){
         parent::__construct();
-        $this->check_isvalidated();
+        $this->_check_isvalidated();
         /* Load form helper */ 
         $this->load->helper(array('form'));
 
@@ -30,9 +30,7 @@ class Login extends CI_Controller{
         $this->form_validation->set_rules('password', 'Contraseña', 'required|min_length[4]|max_length[20]');
         $this->form_validation->set_rules('email', 'Email', 'required');
 
-        // Load our view to be displayed
-        // to the userif ($this->form_validation->run() == FALSE){
-        
+        // si existen erorres de entrada -> mostralos
         if ($this->form_validation->run() == FALSE){
         
             $info = array('error'=>1, 'errores' => validation_errors());
@@ -54,19 +52,17 @@ class Login extends CI_Controller{
             }else{
                 // If user did validate, 
                 // Send them to members area
-                $info = array('error'=>0, 'ruta' =>  base_url().'index.php/perfil');
+                $info = array('error'=>0, 'ruta' =>  base_url().'perfil');
                 echo json_encode($info);
                 
             }   
         }
          
-        
-        
     }
 
-    private function check_isvalidated(){
+    private function _check_isvalidated(){
         if($this->session->userdata('validated')){
-            redirect('index.php/perfil');
+            redirect('/perfil');
         }
     }
 }

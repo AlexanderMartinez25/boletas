@@ -14,7 +14,7 @@
 
             <h3>Bienvenido</h3>
             <p>Ingrese tu información para acceder.</p>
-            <form method='post'class="m-t" role="form" action="<?php echo base_url();?>index.php/login/process" id="loginForm">
+            <form method='post'class="m-t" role="form" action="<?php echo base_url();?>/login/process" id="loginForm">
 
                 <?php 
                     echo validation_errors(); 

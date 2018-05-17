@@ -14,9 +14,9 @@
                                 <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?= $datos_perfil['nombre']. ' '.$datos_perfil['apellido'];?></strong>
                                 </span> <span class="text-muted text-xs block"><?= $datos_perfil['empresa'];?> <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="<?php echo base_url();?>index.php/perfil">Perfil</a></li>
+                                <li><a href="<?php echo base_url();?>/perfil">Perfil</a></li>
                                 <li class="divider"></li>
-                                <li><a href="<?php echo base_url();?>index.php/perfil/logout">Cerrar Sesión</a></li>
+                                <li><a href="<?php echo base_url();?>/home/logout">Cerrar Sesión</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -24,9 +24,9 @@
                         </div>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>index.php/nueva-boleta"><i class="fa fa-ticket"></i> <span class="nav-label">Boletas</span> <span class="fa arrow"></span></a>
+                        <a href="<?php echo base_url();?>/nueva-boleta"><i class="fa fa-ticket"></i> <span class="nav-label">Boletas</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="<?php echo base_url();?>index.php/nueva-boleta">Nueva Boleta</a></li>
+                            <li><a href="<?php echo base_url();?>/nueva-boleta">Nueva Boleta</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -42,7 +42,7 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="<?php echo base_url();?>index.php/perfil/logout">
+                            <a href="<?php echo base_url();?>/home/logout">
                                 <i class="fa fa-sign-out"></i> Cerrar Sesión
                             </a>
                         </li>
