@@ -9,7 +9,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Información. <small> Los campos con (<i class="fa fa-info-circle text-warning"></i>) son requeridos. </small></h5>
+                    <h5>Información. <small> Los campos con (<i class="fa fa-info-circle text-warning"></i>) son requeridos. <?=var_dump($datos_perfil)?></small></h5>
                 </div>
 
                 
@@ -21,7 +21,7 @@
                             echo form_open('form'); 
                         ?>
                         <div class="row">
-
+                        
                             <div id="resp"></div>  
                             <div class="col-sm-4 b-r">
                                 <div class="form-group">
@@ -58,9 +58,16 @@
                                 <div class="form-group">
                                     <label>Región <i class="fa fa-info-circle text-warning"></i></label>
                                     <select name="region" id="region" class="form-control">
-                                        <option value="">Seleccione</option>
-                                        <option value="<?= $datos_perfil['cod_region']?>"><?= $datos_perfil['region_nombre']?></option>
-                                        <?= var_dump($regiones['1'])?>
+                                        <?php
+                                            if( $datos_perfil['id_region'] ){
+                                                echo "<option value=".$datos_perfil['id_region'].">".$datos_perfil['region_nombre']."</option>";
+                                            }else{
+                                                echo "<option value=''>Seleccione</option>";
+                                            }
+                                            foreach ($regiones as $region) {
+                                                echo "<option value=".$region->region_id.">".$region->region_nombre."</option>";
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="hr-line-dashed"></div>
@@ -68,8 +75,16 @@
                                 <div class="form-group">
                                     <label>Provincia <i class="fa fa-info-circle text-warning"></i></label> 
                                     <select name="provincia" id="provincia" class="form-control">
-                                        <option value="">Seleccione</option>
-                                        <option value="<?= $datos_perfil['cod_provincia']?>"><?= $datos_perfil['provincia_nombre']?></option>
+                                        <?php
+                                            if( $datos_perfil['id_provincia'] ){
+                                                echo "<option value=".$datos_perfil['id_provincia'].">".$datos_perfil['provincia_nombre']."</option>";
+                                            }else{
+                                                echo "<option value=''>Seleccione</option>";
+                                            }
+                                            foreach ($provincias as $provincia) {
+                                                echo "<option value=".$provincia->provincia_id.">".$provincia->provincia_nombre."</option>";
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="hr-line-dashed"></div>
@@ -77,8 +92,16 @@
                                 <div class="form-group">
                                     <label>Comuna <i class="fa fa-info-circle text-warning"></i></label> 
                                     <select name="comuna" id="comuna" class="form-control">
-                                        <option value="">Seleccione</option>
-                                        <option value="<?= $datos_perfil['cod_comuna']?>"><?= $datos_perfil['comuna_nombre']?></option>
+                                        <?php
+                                            if( $datos_perfil['id_comuna'] ){
+                                                echo "<option value=".$datos_perfil['id_comuna'].">".$datos_perfil['comuna_nombre']."</option>";
+                                            }else{
+                                                echo "<option value=''>Seleccione</option>";
+                                            }
+                                            foreach ($comunas as $comuna) {
+                                                echo "<option value=".$comuna->comuna_id.">".$comuna->comuna_nombre."</option>";
+                                            }
+                                        ?>                                    
                                     </select>
                                 </div>
                             </div>

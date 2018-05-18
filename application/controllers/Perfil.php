@@ -20,11 +20,19 @@
         $data['ruta'] = 'Perfil';
         $data['titulo'] = 'Perfil';
         $data['datos_perfil'] = $this->perfil_model->get_profile_data();
-        $data['regiones'] = $this->perfil_model->get_provincias(0);
+
+        // consultamos los datos demograficos de chile sin los seleccionados por el ususario
+        $region_id = $data['datos_perfil']['id_region'];
+        $provincia_id = $data['datos_perfil']['id_provincia'];
+        $comuna_id = $data['datos_perfil']['id_comuna'];
+
+        $regiones = $this->perfil_model->get_regiones($region_id);
+        $provincias = $this->perfil_model->get_provincia($provincia_id,$region_id);
+        $comunas = $this->perfil_model->get_comuna($comuna_id,$provincia_id);
         
         $this->load->view('layouts/header',$data);
         $this->load->view('layouts/sidebar',$data);
-        $this->load->view('usuario/perfil_view',$data);
+        $this->load->view('usuario/perfil_view',['regiones'=>$regiones, 'comunas'=>$comunas, 'provincias'=>$provincias]);
         $this->load->view('layouts/footer',$data);
     }
     
@@ -58,15 +66,23 @@
 
     public function provincias ($id){
         
-        $result = $this->perfil_model->get_provincias($id);
+        $result = $this->perfil_model->get_provincias_by_region($id);
         header('Content-type: application/json; charset=utf-8');
         echo json_encode($result);
         
     }
 
-    public function comunas ($id){
+    public function comunas_by_provincia ($id){
         
-        $result = $this->perfil_model->get_comunas($id);
+        $result = $this->perfil_model->get_comunas_by_provincia($id);
+        header('Content-type: application/json; charset=utf-8');
+        echo json_encode($result);
+        
+    }
+
+    public function comuna ($id){
+        
+        $result = $this->perfil_model->get_comuna($id);
         header('Content-type: application/json; charset=utf-8');
         echo json_encode($result);
         

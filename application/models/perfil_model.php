@@ -12,10 +12,10 @@ class Perfil_model extends CI_Model{
         // Prep the query
         $this->db->select('*');
         $this->db->from('usuarios');
-        $this->db->where('idUsuario', $this->session->userdata('idUsuario'));
         $this->db->join('regiones', 'regiones.region_id = usuarios.region', 'inner');
-        $this->db->join('provincias', 'provincias.region_id = regiones.region_id', 'inner');
-        $this->db->join('comunas', 'comunas.provincia_id = provincias.provincia_id', 'inner');
+        $this->db->join('provincias', 'provincias.provincia_id = usuarios.provincia', 'inner');
+        $this->db->join('comunas', 'comunas.comuna_id = usuarios.comuna', 'inner');
+        $this->db->where('idUsuario', $this->session->userdata('idUsuario'));
         // Run the query
         $query = $this->db->get();
         $row = $query->row();
@@ -28,11 +28,11 @@ class Perfil_model extends CI_Model{
                 'empresa' => $row->empresa,
                 'email' => $row->email,
                 'telefono' => $row->telefono,
-                'cod_region' => $row->region,
+                'id_region' => $row->region,
                 'region_nombre' => $row->region_nombre,
-                'cod_provincia' => $row->provincia,
+                'id_provincia' => $row->provincia,
                 'provincia_nombre' => $row->provincia_nombre,
-                'cod_comuna' => $row->comuna,
+                'id_comuna' => $row->comuna,
                 'comuna_nombre' => $row->comuna_nombre,
                 'provincia' => $row->provincia,
                 'comuna' => $row->comuna,
@@ -44,17 +44,41 @@ class Perfil_model extends CI_Model{
         return $data;
     }
 
-    public function get_provincias($id=null){
+    public function get_regiones($id=null){
 
         if ($id){
-            $this->db->where('region_id', $id);
+            $this->db->not_like('region_id', $id);
         }
+        $query = $this->db->get('regiones');
+        return $row = $query->result();
+    }
+    
+    public function get_provincias_by_region($id){
+
+        $this->db->where('region_id', $id);
         $query = $this->db->get('provincias');
         return $row = $query->result();
     }
 
-    public function get_comunas($id){
+    public function get_provincia($id,$id_region){
+
+        $this->db->not_like('provincia_id', $id);
+        $this->db->where('region_id', $id_region);
+        $query = $this->db->get('provincias');
+        return $row = $query->result();
+    }
+
+    public function get_comunas_by_provincia($id){
+
         $this->db->where('provincia_id', $id);
+        $query = $this->db->get('comunas');
+        return $row = $query->result();
+    }
+
+    public function get_comuna($id,$id_provincia){
+
+        $this->db->not_like('comuna_id', $id);
+        $this->db->where('provincia_id', $id_provincia);
         $query = $this->db->get('comunas');
         return $row = $query->result();
     }

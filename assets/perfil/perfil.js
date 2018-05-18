@@ -12,9 +12,9 @@ $(document).on('ready',function(){
                 url: window.location.href+'/provincias/'+region,
                 success: function(provincias)            
                 {   
-                    $('#provincia').html(provincias);
+                    $('#provincia, #comuna').html('');
                     $.each(provincias, function(key, value) {
-                        console.log(value.provincia_id, value.provincia_nombre);
+                        $('#provincia').append('<option value="'+value.provincia_id+'">'+value.provincia_nombre+'</option>');
                     });
                 },
                 
@@ -31,12 +31,12 @@ $(document).on('ready',function(){
 
         if (provincia){
             $.ajax({                        
-                url: window.location.href+'/comunas/'+provincia,
+                url: window.location.href+'/comunas_by_provincia/'+provincia,
                 success: function(comunas)            
                 {   
-                    $('#provincia').html(comunas);
+                    $('#comuna').html(comunas);
                     $.each(comunas, function(key, value) {
-                        console.log(value.provincia_id, value.provincia_nombre);
+                        $('#comuna').append('<option value="'+value.comuna_id+'">'+value.comuna_nombre+'</option>');
                     });
                 },
                 
