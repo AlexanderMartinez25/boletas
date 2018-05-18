@@ -9,7 +9,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Información. <small> Los campos con (<i class="fa fa-info-circle text-warning"></i>) son requeridos. <?=var_dump($datos_perfil)?></small></h5>
+                    <h5>Información. <small> Los campos con (<i class="fa fa-info-circle text-warning"></i>) son requeridos. </small></h5>
                 </div>
 
                 
