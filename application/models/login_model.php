@@ -28,6 +28,7 @@ class Login_model extends CI_Model{
             $data = array(
                     'idUsuario' => $row->idUsuario,
                     'nombre' => $row->nombre,
+                    'apellido' => $row->apellido,
                     'empresa' => $row->empresa,
                     'validated' => true
                 );

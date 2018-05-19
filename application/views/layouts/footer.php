@@ -21,18 +21,26 @@
     echo "
     <script src='".base_url()."../assets/html/js/plugins/ladda/spin.min.js'></script>
     <script src='".base_url()."../assets/html/js/plugins/ladda/ladda.min.js'></script>
-    <script src='".base_url()."../assets/html/js/plugins/ladda/ladda.jquery.min.js'></script>";
+    <script src='".base_url()."../assets/html/js/plugins/ladda/ladda.jquery.min.js'></script>
+    <script src='".base_url()."../assets/html/js/plugins/sweetalert/sweetalert.min.js'></script>";
 
     // Dependiendo de la pagina se cargan los respectivos archivos
     switch ($ruta) {
         case 'Login':
             echo "<script type='text/javascript' src='".base_url()."../assets/login/login.js'></script>";
-            break;
+        break;
+
         case 'Perfil':
             echo "<script type='text/javascript' src='".base_url()."../assets/perfil/perfil.js'></script>
             <script src='".base_url()."../assets/html/js/plugins/jasny/jasny-bootstrap.min.js'></script>";
-            break;
+        break;
+        
+        case 'Sucursales':
+            echo "<script type='text/javascript' src='".base_url()."../assets/html/js/plugins/dataTables/datatables.min.js'></script>
+            <script src='".base_url()."../assets/sucursales/sucursales.js'></script>";
+        break;
+
         default:
-            break;
+        break;
     }
 ?>

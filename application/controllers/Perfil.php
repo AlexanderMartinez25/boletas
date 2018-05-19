@@ -87,6 +87,7 @@
         echo json_encode($result);
         
     }
+    
     private function _check_isvalidated(){
         if(! $this->session->userdata('validated')){
             redirect('/login');

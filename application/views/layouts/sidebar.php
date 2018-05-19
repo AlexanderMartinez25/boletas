@@ -11,12 +11,12 @@
                                 <i class="fa fa-5x fa-buysellads" style="color: #1ab394;"></i>
                             </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?= $datos_perfil['nombre']. ' '.$datos_perfil['apellido'];?></strong>
-                                </span> <span class="text-muted text-xs block"><?= $datos_perfil['empresa'];?> <b class="caret"></b></span> </span> </a>
+                                <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?=  $this->session->userdata('nombre'). ' '. $this->session->userdata('apellido');?></strong>
+                                </span> <span class="text-muted text-xs block"><?= $this->session->userdata('empresa');?> <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="<?php echo base_url();?>/perfil">Perfil</a></li>
+                                <li><a href="<?php echo base_url();?>perfil">Perfil</a></li>
                                 <li class="divider"></li>
-                                <li><a href="<?php echo base_url();?>/home/logout">Cerrar Sesión</a></li>
+                                <li><a href="<?php echo base_url();?>home/logout">Cerrar Sesión</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -24,9 +24,15 @@
                         </div>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>/nueva-boleta"><i class="fa fa-ticket"></i> <span class="nav-label">Boletas</span> <span class="fa arrow"></span></a>
+                        <a href="<?php echo base_url();?>nueva-boleta"><i class="fa fa-ticket"></i> <span class="nav-label">Boletas</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="<?php echo base_url();?>/nueva-boleta">Nueva Boleta</a></li>
+                            <li><a href="<?php echo base_url();?>nueva-boleta">Nueva Boleta</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url();?>sucursales"><i class="fa fa-cog"></i> <span class="nav-label">Configuración</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="<?php echo base_url();?>sucursales">Sucursales</a></li>
                         </ul>
                     </li>
                 </ul>

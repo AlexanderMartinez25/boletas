@@ -9,10 +9,8 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Información. <small> Los campos con (<i class="fa fa-info-circle text-warning"></i>) son requeridos. </small></h5>
+                    <h5>Información. <small> <i class="fa fa-info-circle text-warning"></i> Los campos son requeridos. </small></h5>
                 </div>
-
-                
 
                 <div class="ibox-content">
                     <form method='post' role="form" action="<?php echo base_url();?>/perfil/process" id="perfilForm">
@@ -22,7 +20,7 @@
                         ?>
                         <div class="row">
                         
-                            <div id="resp"></div>  
+                            <div id="resp" class="col-sm-12"></div>  
                             <div class="col-sm-4 b-r">
                                 <div class="form-group">
                                     <label>Nombre <i class="fa fa-info-circle text-warning"></i></label> 
@@ -50,8 +48,8 @@
                             </div>
                             <div class="col-sm-4 b-r">
                                 <div class="form-group">
-                                    <label>Teléfono</label> 
-                                    <input type="text" id="telefono" data-mask="(9)-99999999" name="telefono" placeholder="Ingrese Teléfono" value="<?= $datos_perfil['telefono']?>" class="form-control">
+                                    <label>Empresa <i class="fa fa-info-circle text-warning"></i></label> 
+                                    <input type="text" id="empresa" name="empresa" placeholder="Ingrese Empresa" value="<?= $datos_perfil['empresa']?>" class="form-control">
                                 </div>
                                 <div class="hr-line-dashed"></div>
 
@@ -106,6 +104,13 @@
                                 </div>
                             </div>
                             <div class="col-sm-4">
+                                
+                                <div class="form-group">
+                                    <label>Teléfono</label> 
+                                    <input type="text" id="telefono" data-mask="(9)-99999999" name="telefono" placeholder="Ingrese Teléfono" value="<?= $datos_perfil['telefono']?>" class="form-control">
+                                </div>
+                                <div class="hr-line-dashed"></div>
+
                                 <div class="form-group">
                                     <label>Calle <i class="fa fa-info-circle text-warning"></i></label> 
                                     <input type="text" id="calle" name="calle" placeholder="Ingrese Calle" value="<?= $datos_perfil['calle']?>" class="form-control">
@@ -125,12 +130,13 @@
 
                             </div>
                             <div class="col-sm-12">
-                                <button class="ladda-button ladda-button-demo btn btn-primary pull-right" data-style="zoom-in" type="submit"><strong>Actualizar</strong></button>
+                                <button class="ladda-button ladda-button-demo btn btn-primary pull-right" data-style="zoom-in" id='actualiza' disabled ='disabled'  type="submit"><strong>Actualizar</strong></button>
                             </div>
                             
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

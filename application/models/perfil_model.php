@@ -38,7 +38,8 @@ class Perfil_model extends CI_Model{
                 'comuna' => $row->comuna,
                 'calle' => $row->calle,
                 'numero' => $row->numero,
-                'vivienda' => $row->vivienda
+                'vivienda' => $row->vivienda,
+                'empresa' => $row->empresa
                 
             );
         return $data;
@@ -85,35 +86,38 @@ class Perfil_model extends CI_Model{
 
     public function update(){
         // grab user input
-        $this->load->database();
-        $nombre = $this->security->xss_clean($this->input->post('nombre'));
-        $apellido = $this->security->xss_clean($this->input->post('apellido'));
-        $telefono = $this->security->xss_clean($this->input->post('telefono'));
-        $rut = $this->security->xss_clean($this->input->post('rut'));
-        $region = $this->security->xss_clean($this->input->post('region'));
-        $provincia = $this->security->xss_clean($this->input->post('provincia'));
-        $comuna = $this->security->xss_clean($this->input->post('comuna'));
-        $calle = $this->security->xss_clean($this->input->post('calle'));
-        $numero = $this->security->xss_clean($this->input->post('numero'));
-        $email = $this->security->xss_clean($this->input->post('email'));
-        $vivienda = $this->security->xss_clean($this->input->post('vivienda'));
+        $this->input->post(NULL, TRUE);
+        
+        $nombre = $this->input->post('nombre');
+        $apellido = $this->input->post('apellido');
+        $telefono = $this->input->post('telefono');
+        $rut = $this->input->post('rut');
+        $region = $this->input->post('region');
+        $provincia = $this->input->post('provincia');
+        $comuna = $this->input->post('comuna');
+        $calle = $this->input->post('calle');
+        $numero = $this->input->post('numero');
+        $email = $this->input->post('email');
+        $vivienda = $this->input->post('vivienda');
+        $empresa = $this->input->post('empresa');
         
         $data = array(
             'nombre' => $nombre,
-            'apellido' => $nombre,
+            'apellido' => $apellido,
             'email' => $email,
             'rut' => $rut,
             'telefono' => $telefono,
             'region' => $region,
             'provincia' => $provincia,
+            'comuna' => $comuna,
             'calle' => $calle,
             'numero' => $numero,
-            'comuna' => $comuna,
             'vivienda' => $vivienda,
+            'empresa' => $empresa,
         );
     
         $this->db->where('idUsuario', $this->session->userdata('idUsuario'));
-        $this->db->replace('usuarios', $data);
+        $this->db->update('usuarios', $data);
         return $this->db->affected_rows();
     }
 }

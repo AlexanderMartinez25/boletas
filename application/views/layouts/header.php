@@ -13,5 +13,11 @@
     <link href="<?php echo base_url('../assets/html/css/plugins/ladda/ladda-themeless.min.css');?>" rel="stylesheet">
     <!-- Input Mask-->
     <link href="<?php echo base_url('../assets/html/css/plugins/jasny/jasny-bootstrap.min.css');?>" rel="stylesheet">
-
+    <!-- Sweet Alert -->
+    <link href="<?php echo base_url('../assets/html/css/plugins/sweetalert/sweetalert.css');?>" rel="stylesheet">
+    <?php
+        if($titulo=="Sucursales"){
+            echo"<link href=".base_url('../assets/html/css/plugins/dataTables/datatables.min.css')." rel='stylesheet'>";
+        }
+    ?>
 </head>

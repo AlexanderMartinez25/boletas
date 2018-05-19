@@ -12,7 +12,9 @@ $(document).on('ready',function(){
                 url: window.location.href+'/provincias/'+region,
                 success: function(provincias)            
                 {   
-                    $('#provincia, #comuna').html('');
+                    $('#provincia').html('');
+                    $('#provincia').html('<option value="">Seleccione</option>');
+
                     $.each(provincias, function(key, value) {
                         $('#provincia').append('<option value="'+value.provincia_id+'">'+value.provincia_nombre+'</option>');
                     });
@@ -34,7 +36,7 @@ $(document).on('ready',function(){
                 url: window.location.href+'/comunas_by_provincia/'+provincia,
                 success: function(comunas)            
                 {   
-                    $('#comuna').html(comunas);
+                    $('#comuna').html('<option value="">Seleccione</option>');
                     $.each(comunas, function(key, value) {
                         $('#comuna').append('<option value="'+value.comuna_id+'">'+value.comuna_nombre+'</option>');
                     });
@@ -43,6 +45,11 @@ $(document).on('ready',function(){
             });
         }
     });
+
+    // activar boton de actualizar al cambiar algun campo
+    $("#perfilForm").change(function(e){
+        $('#actualiza').removeAttr('disabled');
+    })
     // envio de formulario
     $("#perfilForm").submit(function(e){
         e.preventDefault();
@@ -57,6 +64,7 @@ $(document).on('ready',function(){
             success: function(data)            
             {   
                 l.ladda('stop');
+                $('#resp').html('');       
                 
                 if(data.error==0 && data.updated==1){
                     swal({
@@ -70,10 +78,14 @@ $(document).on('ready',function(){
                     swal({
                         title: "Error en actualizar datos",
                         text: "Para continuar presione ok",
-                        type: "success"
+                        type: "warning"
                     });
                 }
             },
+            error: function(data)            
+            {
+                console.log(data);
+            }
             
         });
     });
