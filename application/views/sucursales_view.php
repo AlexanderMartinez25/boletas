@@ -1,6 +1,6 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Sucursales</h2>
+        <h2>Sucursales de ventas</h2>
     </div>
 </div>
 
@@ -18,13 +18,15 @@
                             <thead>
                                 <tr>
                                     <th>Sucursal</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id='body-sucursales'>
                                 <?php
                                     foreach ($sucursales as $sucursal) {
                                         echo "<tr>
-                                            <td>".$sucursal->id_sucursal." ".$sucursal->nombre."</td>
+                                            <td>".$sucursal->nombre."</td>
+                                            <td><button class='btn btn-warning btn-xs' onClick='editar(\"".$sucursal->id_sucursal."\",\"".$sucursal->nombre."\")' type='button'><i class='fa fa-pencil'></i> <span class='bold'>Editar</span></button></td>
                                         </tr>";
                                     }
                                 ?>
@@ -38,14 +40,14 @@
     </div>
 
     <!-- modal agregar sucursal -->
-    <div class="modal inmodal fade" id="modal_sucursal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="modal_add_sucursal" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="Cerrar" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Agregar sucursal de ventas</h4>
                 </div>
-                <form method='post' role="form" action="<?php echo base_url();?>/sucursal/process" id="sucursalForm">
+                <form method='post' role="form" action="<?php echo base_url();?>sucursales/process" id="sucursalForm">
                     <?php 
                         echo validation_errors(); 
                         echo form_open('form'); 
@@ -55,7 +57,7 @@
                         <div class="row">
                         
                             <div id="resp" class="col-sm-12"></div>  
-                            <div class="col-sm-4 b-r">
+                            <div class="col-sm-124">
                                 <div class="form-group">
                                     <label>Nombre <i class="fa fa-info-circle text-warning"></i></label> 
                                     <input type="text" id="nombre" name="nombre" placeholder="Ingrese Nombre" value="" class="form-control">
@@ -66,7 +68,45 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="ladda-button btn btn-primary" data-style="zoom-in">Guardar</button>
+                        <button type="submit" class="ladda-button btn btn-primary" data-style="zoom-in">Guardar</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- modal editar sucursal -->
+    <div class="modal inmodal fade" id="modal_edit_sucursal" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                    <h4 class="modal-title">Editar sucursal de ventas</h4>
+                </div>
+                <form method='post' role="form" action="<?php echo base_url();?>sucursales/editar" id="sucursalEditForm">
+                    <?php 
+                        echo validation_errors(); 
+                        echo form_open('form'); 
+                    ?>
+                    <div class="modal-body">
+                        
+                        <div class="row">
+                        
+                            <div id="resp_edit" class="col-sm-12"></div>  
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Nombre <i class="fa fa-info-circle text-warning"></i></label> 
+                                    <input type="text" id="nombre_edit" name="nombre_edit" placeholder="Ingrese Nombre" class="form-control">
+                                    <input type="hidden" name="id_edit" id='id_edit'>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="ladda-button btn btn-primary" data-style="zoom-in">Guardar</button>
                     </div>
                 </form>
                 
@@ -74,10 +114,5 @@
         </div>
     </div>
 </div>
-<!-- crear boton de agregar
-con respectivo diseño
-para que llame al modal
-
-tambien debe tener boton editar 
-el cual debe llamar a una funcion en javasscript
-pasandole el id_sucursal invicando al modal editar -->
+<!-- 
+tooltip y boton de eliminar-->

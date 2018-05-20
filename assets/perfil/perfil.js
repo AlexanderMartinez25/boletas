@@ -65,7 +65,8 @@ $(document).on('ready',function(){
             {   
                 l.ladda('stop');
                 $('#resp').html('');       
-                
+
+                // si no hay errores de formulario y se inserta en la bd
                 if(data.error==0 && data.updated==1){
                     swal({
                         title: "Datos actualizados",

@@ -771,8 +771,8 @@ fieldset[disabled] .btn-info.active {
   border-color: #26d7d9;
 }
 .btn-default {
-  color: inherit;
-  background: white;
+  /* color: inherit;
+  background: white; */
   border: 1px solid #e7eaec;
 }
 .btn-default:hover,
@@ -784,8 +784,8 @@ fieldset[disabled] .btn-info.active {
 .btn-default:active:hover,
 .btn-default.active:hover,
 .btn-default.active:focus {
-  color: inherit;
-  border: 1px solid #d2d2d2;
+  /* color: inherit;
+  border: 1px solid #d2d2d2; */
 }
 .btn-default:active,
 .btn-default.active,
@@ -1631,7 +1631,7 @@ table.dataTable thead .sorting_asc:after,
 table.dataTable thead .sorting_desc,
 table.dataTable thead .sorting_asc_disabled,
 table.dataTable thead .sorting_desc_disabled {
-  background: transparent;
+  /* background: transparent; */
 }
 .dataTables_wrapper {
   padding-bottom: 30px;
@@ -1646,18 +1646,18 @@ table.dataTable thead .sorting_desc_disabled {
   float: right;
 }
 .html5buttons a {
-  border: 1px solid #e7eaec;
+  /* border: 1px solid #e7eaec;
   background: #fff;
-  color: #676a6c;
+  color: #676a6c; */
   box-shadow: none;
   padding: 6px 8px;
   font-size: 12px;
 }
 .html5buttons a:hover,
 .html5buttons a:focus:active {
-  background-color: #eee;
+  /* background-color: #eee;
   color: inherit;
-  border-color: #d2d2d2;
+  border-color: #d2d2d2; */
 }
 div.dt-button-info {
   z-index: 100;
@@ -3630,6 +3630,8 @@ body.body-small .footer.fixed {
 .table > thead > tr > th {
   border-bottom: 1px solid #DDDDDD;
   vertical-align: bottom;
+  background-color: #2f4050;
+  color: white;
 }
 .table > thead > tr > th,
 .table > tbody > tr > th,

@@ -27,6 +27,7 @@ class Sucursales extends CI_Controller {
         $this->load->view('layouts/footer',$data);
     }
     
+    // insertar nueva sucursal
     public function process(){
         
         $this->form_validation->set_rules('nombre', 'Nombre', 'required');
@@ -38,13 +39,38 @@ class Sucursales extends CI_Controller {
             echo json_encode($info);
 
         }else{
-            // Validate the user can login
+            $result = $this->sucursales_model->insert();
+
+            // si $result = 1, se insertaron los datos 
+            $info = array('error'=>0, 'insert' => $result);
+            echo json_encode($info);
+        }
+    }
+
+    // editar nueva sucursal
+    public function editar(){
+        
+        $this->form_validation->set_rules('nombre_edit', 'Nombre', 'required');
+
+        header('Content-type: application/json; charset=utf-8');
+        if ($this->form_validation->run() == FALSE){
+            // indicamos que hay errores de entrada en los inputs
+            $info = array('error'=>1, 'errores' => validation_errors());
+            echo json_encode($info);
+
+        }else{
             $result = $this->sucursales_model->update();
 
             // si $result = 1, se actualizaron los datos 
-            $info = array('error'=>0, 'updated' => $result);
+            $info = array('error'=>0, 'insert' => $result);
             echo json_encode($info);
         }
+    }
+
+    public function get_sucursales(){
+        header('Content-type: application/json; charset=utf-8');
+        $result = $this->sucursales_model->get_sucursales();
+        echo json_encode($result);
     }
 
     private function _check_isvalidated(){
