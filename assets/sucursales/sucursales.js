@@ -86,7 +86,7 @@ $(document).ready(function(){
                     swal({
                         title: "Error en actualizar sucursal",
                         text: "Para continuar presione ok",
-                        type: "warning"
+                        type: "danger"
                     });
                 }
             },
@@ -110,7 +110,7 @@ function recrearTabla() {
             $('#body-sucursales').html('');
             // recreamos la tabla
             for(var i in data){
-                $('#body-sucursales').append('<tr> <td>'+data[i].nombre+'</td> <td><button class="btn btn-warning btn-xs" onClick="editar(\''+data[i].id_sucursal+'\',\''+data[i].nombre+'\')" type="button"><i class="fa fa-pencil"></i> <span class="bold">Editar</span></button></td> </tr>')
+                $('#body-sucursales').append('<tr> <td>'+data[i].nombre+'</td> <td><button class="btn btn-warning btn-xs" onClick="editar(\''+data[i].id_sucursal+'\',\''+data[i].nombre+'\')" type="button"><i class="fa fa-pencil"></i> <span class="bold">Editar</span></button> <button class="btn btn-danger btn-xs" onClick="eliminar(\''+data[i].id_sucursal+'\')" type="button"><i class="fa fa-trash"></i> <span class="bold">Eliminar</span></button></td></tr>')
             }            
             crearTabla();
             
@@ -121,10 +121,45 @@ function recrearTabla() {
 function editar(id,nombre){
     $('#nombre_edit').val(nombre);
     $('#id_edit').val(id);
-    
+    $('#resp_edit').html('');
     $('#modal_edit_sucursal').modal('show');
     
 }
+
+function eliminar(id) {
+    swal({
+        title: "¿Estas seguro?",
+        text: "no podrás recuperarla después de elimnarla",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Si, eliminar!",
+        closeOnConfirm: false
+    }, function () {
+        id_delete = id;
+        $.ajax({                        
+            url: window.location.href+'/delete',
+            data: {'id_delete' : id_delete},
+            type: 'post',                 
+            success: function(data)            
+            {   
+                // destruimos la tabla
+                $('#tabla-sucursales').DataTable().destroy();
+                $('#body-sucursales').html('');
+                // recreamos la tabla
+                if (data==1){
+                    swal("Eliminada!", "Sucursal eliminada.", "success");
+                    recrearTabla();
+
+                }else{
+                    swal("Error en eliminar sucursal!", "Para continuar presione ok.", "danger");
+                }          
+            }
+        });
+    });
+}
+
 function crearTabla() {
     $('#tabla-sucursales').DataTable({
         pageLength: 25,
@@ -138,6 +173,7 @@ function crearTabla() {
                 className: 'btn btn btn-primary',
                 action: function (e, dt, node, config) {
                     $('#modal_add_sucursal').modal('show');
+                    $('#resp').html('');
                 }
             },
             { extend: 'excel', title: 'Sucursales' },

@@ -26,7 +26,10 @@
                                     foreach ($sucursales as $sucursal) {
                                         echo "<tr>
                                             <td>".$sucursal->nombre."</td>
-                                            <td><button class='btn btn-warning btn-xs' onClick='editar(\"".$sucursal->id_sucursal."\",\"".$sucursal->nombre."\")' type='button'><i class='fa fa-pencil'></i> <span class='bold'>Editar</span></button></td>
+                                            <td class='text-center'>
+                                                <button class='btn btn-warning btn-xs' onClick='editar(\"".$sucursal->id_sucursal."\",\"".$sucursal->nombre."\")' type='button'><i class='fa fa-pencil'></i> <span class='bold'>Editar</span></button>
+                                                <button class='btn btn-danger btn-xs' onClick='eliminar(\"".$sucursal->id_sucursal."\")' type='button'><i class='fa fa-trash'></i> <span class='bold'>Eliminar</span></button>
+                                            </td>
                                         </tr>";
                                     }
                                 ?>
@@ -44,7 +47,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="Cerrar" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                     <h4 class="modal-title">Agregar sucursal de ventas</h4>
                 </div>
                 <form method='post' role="form" action="<?php echo base_url();?>sucursales/process" id="sucursalForm">

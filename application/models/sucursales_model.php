@@ -35,15 +35,27 @@ class Sucursales_model extends CI_Model{
         $this->input->post(NULL, TRUE);
         
         $nombre = $this->input->post('nombre');
-        $id = $this->input->post('id');
-        
+
         $data = array(
             'nombre' => $nombre,
             'id_usuario' => $this->session->userdata('idUsuario')
         );
     
         if ( ! $this->db->insert('sucursales', $data)){
-            return $error = $this->db->error(); // Has keys 'code' and 'message'
+            return $error = $this->db->error();
+        }else{
+            return 1;
+        }
+    }
+
+    public function delete(){
+        $this->input->post(NULL, TRUE);
+        $id = $this->input->post('id_delete');
+        
+        $this->db->where('id_sucursal', $id);
+    
+        if ( ! $this->db->delete('sucursales')){
+            return $error = $this->db->error();
         }else{
             return 1;
         }

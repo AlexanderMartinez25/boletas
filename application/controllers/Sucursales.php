@@ -67,6 +67,11 @@ class Sucursales extends CI_Controller {
         }
     }
 
+    // delete nueva sucursal
+    public function delete(){
+        echo $result = $this->sucursales_model->delete();
+    }
+
     public function get_sucursales(){
         header('Content-type: application/json; charset=utf-8');
         $result = $this->sucursales_model->get_sucursales();
