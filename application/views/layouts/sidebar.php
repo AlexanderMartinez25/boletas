@@ -24,9 +24,9 @@
                         </div>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>nueva-boleta"><i class="fa fa-ticket"></i> <span class="nav-label">Boletas</span> <span class="fa arrow"></span></a>
+                        <a href="<?php echo base_url();?>boleta"><i class="fa fa-ticket"></i> <span class="nav-label">Boletas</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="<?php echo base_url();?>nueva-boleta">Nueva Boleta</a></li>
+                            <li><a href="<?php echo base_url();?>boleta">Nueva Boleta</a></li>
                         </ul>
                     </li>
                     <li>

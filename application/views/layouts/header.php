@@ -19,5 +19,9 @@
         if($titulo=="Sucursales"){
             echo"<link href=".base_url('../assets/html/css/plugins/dataTables/datatables.min.css')." rel='stylesheet'>";
         }
+        if($titulo=="Boleta"){
+            echo"<link href=".base_url('../assets/html/css/plugins/datapicker/datepicker3.css')." rel='stylesheet'>";
+        }
+        
     ?>
 </head>

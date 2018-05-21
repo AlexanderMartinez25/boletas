@@ -1,7 +1,19 @@
 $(document).on('ready',function(){
     
     var l = $( '.ladda-button-demo' ).ladda();
-
+    $('#monto').priceFormat({
+        prefix: '',
+        centsSeparator: ',',
+        thousandsSeparator: '.'
+    });
+    
+    $('#fecha').datepicker({
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true
+    });
 
     // envio de formulario
     $("#boletaForm").submit(function(e){
@@ -9,7 +21,8 @@ $(document).on('ready',function(){
         var form = $(this);
 
         l.ladda( 'start' );
-        
+        $('#monto').unmask();
+
         $.ajax({                        
             url: form.attr('action'),
             type: form.attr('method'),                 

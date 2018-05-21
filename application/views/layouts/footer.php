@@ -40,6 +40,12 @@
             <script src='".base_url()."../assets/sucursales/sucursales.js'></script>";
         break;
 
+        case 'Boleta':
+            echo "<script type='text/javascript' src='".base_url()."../assets/html/js/plugins/price-format/jquery.priceformat.min.js'></script>
+            <script type='text/javascript' src='".base_url()."../assets/html/js/plugins/datapicker/bootstrap-datepicker.js'></script>
+            <script src='".base_url()."../assets/boleta/boleta.js'></script>";
+        break;
+
         default:
         break;
     }

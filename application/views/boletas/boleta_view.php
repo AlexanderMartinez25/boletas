@@ -25,6 +25,7 @@
                                 <div class="form-group">
                                     <label>Sucursal <i class="fa fa-info-circle text-warning"></i></label>
                                     <select name="sucursal" id="sucursal" class="form-control">
+                                    <option value="">Seleccione</option>
                                         <?php
                                             foreach ($sucursales as $sucursal) {
                                                 echo "
@@ -56,7 +57,7 @@
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label>Monto <i class="fa fa-info-circle text-warning"></i></label> 
-                                    <input type="text" id="text" name="text" placeholder="Ingrese Monto" class="form-control">
+                                    <input type="text" id="monto" name="monto" placeholder="Ingrese Monto" class="form-control">
                                 </div>
                             </div>
                             

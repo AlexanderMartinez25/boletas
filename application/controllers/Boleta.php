@@ -22,7 +22,7 @@
 
         $this->load->view('layouts/header',$data);
         $this->load->view('layouts/sidebar',$data);
-        $this->load->view('usuario/perfil_view',['sucursales'=>$sucursales]);
+        $this->load->view('boletas/boleta_view',['sucursales'=>$sucursales]);
         $this->load->view('layouts/footer',$data);
     }
     
