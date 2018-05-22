@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-05-2018 a las 08:14:38
+-- Tiempo de generación: 22-05-2018 a las 11:29:03
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -25,6 +25,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `boletas`
+--
+
+CREATE TABLE `boletas` (
+  `id_boleta` bigint(20) UNSIGNED NOT NULL,
+  `sucursal` bigint(20) UNSIGNED NOT NULL,
+  `numero` int(12) NOT NULL,
+  `fecha` date NOT NULL,
+  `monto` int(11) NOT NULL,
+  `id_usuario` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `boletas`
+--
+
+INSERT INTO `boletas` (`id_boleta`, `sucursal`, `numero`, `fecha`, `monto`, `id_usuario`) VALUES
+(8, 15, 43, '2018-05-22', 12490000, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `comunas`
 --
 
@@ -32,7 +54,7 @@ CREATE TABLE `comunas` (
   `comuna_id` int(11) NOT NULL,
   `comuna_nombre` varchar(64) NOT NULL,
   `provincia_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `comunas`
@@ -395,7 +417,7 @@ CREATE TABLE `provincias` (
   `provincia_id` int(11) NOT NULL,
   `provincia_nombre` varchar(64) NOT NULL,
   `region_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `provincias`
@@ -466,7 +488,7 @@ CREATE TABLE `regiones` (
   `region_id` int(11) NOT NULL,
   `region_nombre` varchar(64) NOT NULL,
   `region_ordinal` varchar(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `regiones`
@@ -498,18 +520,16 @@ INSERT INTO `regiones` (`region_id`, `region_nombre`, `region_ordinal`) VALUES
 CREATE TABLE `sucursales` (
   `id_sucursal` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `id_usuario` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `id_usuario` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sucursales`
 --
 
 INSERT INTO `sucursales` (`id_sucursal`, `nombre`, `id_usuario`) VALUES
-(1, 'Sucursal_1', 1),
-(2, 'Sucursal_2', 1),
-(3, 'tabla', 1),
-(4, 'tabla extranjero', 10);
+(4, 'tabla extranjero', 10),
+(15, 'sucursal_3', 1);
 
 -- --------------------------------------------------------
 
@@ -532,7 +552,7 @@ CREATE TABLE `usuarios` (
   `comuna` int(3) NOT NULL,
   `vivienda` varchar(50) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Dpto./ Casa/ Oficina/ Condominio',
   `empresa` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'razón social'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -547,16 +567,27 @@ INSERT INTO `usuarios` (`idUsuario`, `email`, `nombre`, `apellido`, `rut`, `call
 --
 
 --
+-- Indices de la tabla `boletas`
+--
+ALTER TABLE `boletas`
+  ADD PRIMARY KEY (`id_boleta`),
+  ADD UNIQUE KEY `id_boleta` (`id_boleta`),
+  ADD KEY `boletas_ibfk_1` (`id_usuario`),
+  ADD KEY `boletas_ibfk_2` (`sucursal`);
+
+--
 -- Indices de la tabla `comunas`
 --
 ALTER TABLE `comunas`
-  ADD PRIMARY KEY (`comuna_id`);
+  ADD PRIMARY KEY (`comuna_id`),
+  ADD KEY `provincia_id` (`provincia_id`);
 
 --
 -- Indices de la tabla `provincias`
 --
 ALTER TABLE `provincias`
-  ADD PRIMARY KEY (`provincia_id`);
+  ADD PRIMARY KEY (`provincia_id`),
+  ADD KEY `region_id` (`region_id`);
 
 --
 -- Indices de la tabla `regiones`
@@ -569,7 +600,8 @@ ALTER TABLE `regiones`
 --
 ALTER TABLE `sucursales`
   ADD PRIMARY KEY (`id_sucursal`),
-  ADD UNIQUE KEY `id` (`id_sucursal`);
+  ADD UNIQUE KEY `id` (`id_sucursal`),
+  ADD KEY `sucursales_ibfk_2` (`id_usuario`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -581,6 +613,12 @@ ALTER TABLE `usuarios`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `boletas`
+--
+ALTER TABLE `boletas`
+  MODIFY `id_boleta` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `comunas`
@@ -604,13 +642,42 @@ ALTER TABLE `regiones`
 -- AUTO_INCREMENT de la tabla `sucursales`
 --
 ALTER TABLE `sucursales`
-  MODIFY `id_sucursal` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_sucursal` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `idUsuario` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `boletas`
+--
+ALTER TABLE `boletas`
+  ADD CONSTRAINT `boletas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `boletas_ibfk_2` FOREIGN KEY (`sucursal`) REFERENCES `sucursales` (`id_sucursal`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `comunas`
+--
+ALTER TABLE `comunas`
+  ADD CONSTRAINT `comunas_ibfk_1` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`provincia_id`);
+
+--
+-- Filtros para la tabla `provincias`
+--
+ALTER TABLE `provincias`
+  ADD CONSTRAINT `provincias_ibfk_1` FOREIGN KEY (`region_id`) REFERENCES `regiones` (`region_id`);
+
+--
+-- Filtros para la tabla `sucursales`
+--
+ALTER TABLE `sucursales`
+  ADD CONSTRAINT `sucursales_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
