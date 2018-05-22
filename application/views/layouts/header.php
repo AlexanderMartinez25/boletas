@@ -15,12 +15,16 @@
     <link href="<?php echo base_url('../assets/html/css/plugins/jasny/jasny-bootstrap.min.css');?>" rel="stylesheet">
     <!-- Sweet Alert -->
     <link href="<?php echo base_url('../assets/html/css/plugins/sweetalert/sweetalert.css');?>" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="<?php echo base_url('../assets/html/css/plugins/select2/select2.min.css');?>" rel="stylesheet">
     <?php
         if($titulo=="Sucursales"){
             echo"<link href=".base_url('../assets/html/css/plugins/dataTables/datatables.min.css')." rel='stylesheet'>";
         }
-        if($titulo=="Boleta"){
-            echo"<link href=".base_url('../assets/html/css/plugins/datapicker/datepicker3.css')." rel='stylesheet'>";
+        if($ruta=="Boleta"){
+            echo"<link href=".base_url('../assets/html/css/plugins/datapicker/datepicker3.css')." rel='stylesheet'>
+                <link href=".base_url('../assets/html/css/plugins/toastr/toastr.min.css')." rel='stylesheet'>
+            ";
         }
         
     ?>

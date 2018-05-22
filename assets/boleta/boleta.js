@@ -1,17 +1,21 @@
 $(document).on('ready',function(){
     
-    var l = $( '.ladda-button-demo' ).ladda();
+    var l = $( '#guardar' ).ladda();
+
     $('#monto').priceFormat({
         prefix: '',
         centsSeparator: ',',
         thousandsSeparator: '.'
     });
     
+    select2Active();
+
     $('#fecha').datepicker({
         todayBtn: "linked",
         keyboardNavigation: false,
         forceParse: false,
         calendarWeeks: true,
+        language: "es",
         autoclose: true
     });
 
@@ -21,8 +25,9 @@ $(document).on('ready',function(){
         var form = $(this);
 
         l.ladda( 'start' );
-        $('#monto').unmask();
-
+        montoUnformat = $('#monto').unmask();
+        $('#monto_hide').val(montoUnformat);
+        
         $.ajax({                        
             url: form.attr('action'),
             type: form.attr('method'),                 
@@ -33,15 +38,23 @@ $(document).on('ready',function(){
                 $('#resp').html('');       
 
                 // si no hay errores de formulario y se inserta en la bd
-                if(data.error==0 && data.updated==1){
+                if(data.error==0 && data.insert==1){
                     swal({
                         title: "Boleta ingresada",
                         text: "Para continuar presione ok",
                         type: "success"
                     });
+                    $("#boletaForm")[0].reset();
+                    select2Active();
+
                 }else if(data.error==1){
-                    $('#resp').html(data.errores);       
-                }else if(data.updated!=1){
+                    $('#resp').html(data.errores);
+                }else if(data.error==2){
+                    
+                    toasterOptions();
+                    toastr.error('Existe un mismo número de boleta para la sucursal seleccionada', 'Error al insertar');
+
+                }else if(data.insert!=1){
                     swal({
                         title: "Error en ingresar boleta",
                         text: "Para continuar presione ok",
@@ -57,3 +70,32 @@ $(document).on('ready',function(){
         });
     });
 });
+
+function toasterOptions() {
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "8000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+};
+
+
+
+function select2Active() {
+    $("#sucursal").select2({
+        placeholder: "Selecciona Sucursal",
+        allowClear: true
+    });
+}

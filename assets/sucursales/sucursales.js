@@ -129,7 +129,7 @@ function editar(id,nombre){
 function eliminar(id) {
     swal({
         title: "¿Estas seguro?",
-        text: "no podrás recuperarla después de elimnarla",
+        text: "todos los datos asociados a esta sucursal se eliminarán",
         type: "warning",
         showCancelButton: true,
         cancelButtonText: 'Cancelar',

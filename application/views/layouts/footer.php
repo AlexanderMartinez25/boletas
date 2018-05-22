@@ -22,8 +22,9 @@
     <script src='".base_url()."../assets/html/js/plugins/ladda/spin.min.js'></script>
     <script src='".base_url()."../assets/html/js/plugins/ladda/ladda.min.js'></script>
     <script src='".base_url()."../assets/html/js/plugins/ladda/ladda.jquery.min.js'></script>
+    <script src='".base_url()."../assets/html/js/plugins/select2/select2.full.min.js'></script>
     <script src='".base_url()."../assets/html/js/plugins/sweetalert/sweetalert.min.js'></script>";
-
+    
     // Dependiendo de la pagina se cargan los respectivos archivos
     switch ($ruta) {
         case 'Login':
@@ -43,6 +44,8 @@
         case 'Boleta':
             echo "<script type='text/javascript' src='".base_url()."../assets/html/js/plugins/price-format/jquery.priceformat.min.js'></script>
             <script type='text/javascript' src='".base_url()."../assets/html/js/plugins/datapicker/bootstrap-datepicker.js'></script>
+            <script type='text/javascript' src='".base_url()."../assets/html/js/plugins/datapicker/bootstrap-datepicker.es.js'></script>
+            <script type='text/javascript' src='".base_url()."../assets/html/js/plugins/toastr/toastr.min.js'></script>
             <script src='".base_url()."../assets/boleta/boleta.js'></script>";
         break;
 

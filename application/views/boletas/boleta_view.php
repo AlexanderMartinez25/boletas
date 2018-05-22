@@ -1,6 +1,6 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Boleta</h2>
+        <h2>Nueva Boleta</h2>
     </div>
 </div>
 
@@ -11,8 +11,15 @@
                 <div class="ibox-title">
                     <h5>Ingreso de nueva boleta. <small> <i class="fa fa-info-circle text-warning"></i> Los campos son requeridos. </small></h5>
                 </div>
-
+                
                 <div class="ibox-content">
+                    <?php
+                        if (count($sucursales)<1) {
+                            echo '<div class="alert alert-warning">
+                                No tienes niguna sucursal registrada. <a class="alert-link" href="sucursales"> Agrega aquí</a>.
+                            </div>';
+                        }
+                    ?>
                     <form method='post' role="form" action="<?php echo base_url();?>/boleta/process" id="boletaForm">
                         <?php 
                             echo validation_errors(); 
@@ -40,7 +47,7 @@
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label>Número <i class="fa fa-info-circle text-warning"></i></label> 
-                                    <input type="text" id="text" name="text" placeholder="Ingrese Número" class="form-control">
+                                    <input type="number" id="numero" name="numero" placeholder="Ingrese Número" class="form-control">
                                 </div>
                             </div>
 
@@ -58,11 +65,12 @@
                                 <div class="form-group">
                                     <label>Monto <i class="fa fa-info-circle text-warning"></i></label> 
                                     <input type="text" id="monto" name="monto" placeholder="Ingrese Monto" class="form-control">
+                                    <input type="hidden" id="monto_hide" name="monto_hide">
                                 </div>
                             </div>
                             
                             <div class="col-sm-12">
-                                <button class="ladda-button ladda-button-demo btn btn-primary pull-right" data-style="zoom-in" id='actualiza' type="submit"><strong>Actualizar</strong></button>
+                                <button class="ladda-button ladda-button-demo btn btn-primary pull-right" data-style="zoom-in" id='guardar' type="submit"><strong>Guardar</strong></button>
                             </div>
                             
                         </div>

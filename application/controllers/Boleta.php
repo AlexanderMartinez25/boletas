@@ -17,7 +17,7 @@
     
     public function index(){
         $data['ruta'] = 'Boleta';
-        $data['titulo'] = 'Boleta';
+        $data['titulo'] = 'Nueva Boleta';
         $sucursales = $this->sucursales_model->get_sucursales();
 
         $this->load->view('layouts/header',$data);
@@ -41,7 +41,17 @@
             echo json_encode($info);
 
         }else{
-            $result = $this->perfil_model->insert();
+            $this->load->model('boleta_model');
+
+            // verificamos que no exista una misma sucursal con el mismo numero de boleta
+            $existe = $this->boleta_model->validated();
+            if ($existe>0) {
+                $info = array('error'=>2);
+                echo json_encode($info);
+                return;
+            }
+
+            $result = $this->boleta_model->insert();
 
             // si $result = 1, se insertaron los datos 
             $info = array('error'=>0, 'insert' => $result);
