@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-05-2018 a las 11:29:03
+-- Tiempo de generación: 23-05-2018 a las 12:06:02
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -551,16 +551,20 @@ CREATE TABLE `usuarios` (
   `provincia` int(11) NOT NULL,
   `comuna` int(3) NOT NULL,
   `vivienda` varchar(50) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Dpto./ Casa/ Oficina/ Condominio',
-  `empresa` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'razón social'
+  `razon_social` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'razón social',
+  `tipo_cliente` int(1) NOT NULL COMMENT 'juridico o natural',
+  `nombre_fantasia` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `tipo_contribuyente` int(1) NOT NULL,
+  `plan` int(11) NOT NULL COMMENT 'plan contratado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`idUsuario`, `email`, `nombre`, `apellido`, `rut`, `calle`, `telefono`, `password`, `numero`, `region`, `provincia`, `comuna`, `vivienda`, `empresa`) VALUES
-(1, 'alex@gmail.com', 'alext', 'mart', '26014685-9', 'Sebastián Elcano', '(9)-61670734', '1234', 1752, 12, 40, 286, 'departamento', 'GlobalCorp'),
-(10, '', 'test', '', '', '', '', '', 0, 10, 35, 204, '', '');
+INSERT INTO `usuarios` (`idUsuario`, `email`, `nombre`, `apellido`, `rut`, `calle`, `telefono`, `password`, `numero`, `region`, `provincia`, `comuna`, `vivienda`, `razon_social`, `tipo_cliente`, `nombre_fantasia`, `tipo_contribuyente`, `plan`) VALUES
+(1, 'alex@gmail.com', '', '', '26014685-9', 'Sebastián Elcano', '(9)-61670734', '1234', 1752, 1, 2, 4, 'departamento', 'Global Corp SPA', 1, 'Global Corp', 3, 1),
+(10, '', 'test', '', '', '', '', '', 0, 10, 35, 204, '', '', 0, '', 2, 0);
 
 --
 -- Índices para tablas volcadas
