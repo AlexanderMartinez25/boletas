@@ -1,6 +1,10 @@
 $(document).on('ready',function(){
     
     var l = $( '.ladda-button-demo' ).ladda();
+    
+    $('#region,#provincia,#comuna,#tipo_contribuyente,#tipo_cliente').select2({
+        placeholder: 'Seleccione'
+    });
 
     // cambiar region
     $("#region").change(function(e){
@@ -44,6 +48,26 @@ $(document).on('ready',function(){
                 
             });
         }
+    });
+
+
+    // cambiar tipo_cliente
+    $('#tipo_cliente').on("change", function(e) { 
+        let tipo_cliente = $('#tipo_cliente').val();
+
+        if (tipo_cliente==1){ //juridico
+            $('#razon_social,#nombre_fantasia').removeAttr('disabled');
+            $('#alert-razon,#alert-fantasia').removeClass('hide');
+            $('#nombre,#apellido').prop('disabled','disabled').val('');
+            $('#alert-nombre,#alert-apellido').addClass('hide');
+            
+        }else{
+            $('#nombre,#apellido').removeAttr('disabled');
+            $('#alert-nombre,#alert-apellido').removeClass('hide');
+            $('#razon_social,#nombre_fantasia').prop('disabled','disabled').val('');
+            $('#alert-razon,#alert-fantasia').addClass('hide');
+            
+        };
     });
 
     // activar boton de actualizar al cambiar algun campo

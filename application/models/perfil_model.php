@@ -25,7 +25,7 @@ class Perfil_model extends CI_Model{
                 'nombre' => $row->nombre,
                 'apellido' => $row->apellido,
                 'rut' => $row->rut,
-                'empresa' => $row->empresa,
+                'razon_social' => $row->razon_social,
                 'email' => $row->email,
                 'telefono' => $row->telefono,
                 'id_region' => $row->region,
@@ -39,13 +39,16 @@ class Perfil_model extends CI_Model{
                 'calle' => $row->calle,
                 'numero' => $row->numero,
                 'vivienda' => $row->vivienda,
-                'empresa' => $row->empresa
+                'tipo_cliente' => $row->tipo_cliente,
+                'nombre_fantasia' => $row->nombre_fantasia,
+                'tipo_contribuyente' => $row->tipo_contribuyente,
+                // 'plan' => $row->plan
                 
             );
         return $data;
     }
 
-    public function get_regiones($id=null){
+    public function get_regiones($id=NULL){
 
         if ($id){
             $this->db->not_like('region_id', $id);
@@ -99,7 +102,11 @@ class Perfil_model extends CI_Model{
         $numero = $this->input->post('numero');
         $email = $this->input->post('email');
         $vivienda = $this->input->post('vivienda');
-        $empresa = $this->input->post('empresa');
+        $tipo_contribuyente = $this->input->post('tipo_contribuyente');
+        $plan = $this->input->post('plan');
+        $razon_social = $this->input->post('razon_social');
+        $nombre_fantasia = $this->input->post('nombre_fantasia');
+        $tipo_cliente = $this->input->post('tipo_cliente');
         
         $data = array(
             'nombre' => $nombre,
@@ -113,7 +120,11 @@ class Perfil_model extends CI_Model{
             'calle' => $calle,
             'numero' => $numero,
             'vivienda' => $vivienda,
-            'empresa' => $empresa,
+            'tipo_cliente' => $tipo_cliente,
+            'razon_social' => $razon_social,
+            'nombre_fantasia' => $nombre_fantasia,
+            'tipo_contribuyente' => $tipo_contribuyente,
+            
         );
     
         $this->db->where('idUsuario', $this->session->userdata('idUsuario'));

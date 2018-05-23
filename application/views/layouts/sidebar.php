@@ -1,3 +1,10 @@
+
+<?php
+    $nombre = ($this->session->userdata('nombre')) ? 
+        $this->session->userdata('nombre'). ' '. $this->session->userdata('apellido')
+        : $this->session->userdata('razon_social');
+?>
+
 <body>
 
     <div id="wrapper">
@@ -11,8 +18,8 @@
                                 <i class="fa fa-5x fa-buysellads" style="color: #1ab394;"></i>
                             </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?=  $this->session->userdata('nombre'). ' '. $this->session->userdata('apellido');?></strong>
-                                </span> <span class="text-muted text-xs block"><?= $this->session->userdata('empresa');?> <b class="caret"></b></span> </span> </a>
+                                <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?=  $nombre ?></strong>
+                                </span> <span class="text-muted text-xs block"><?= $this->session->userdata('empresa');?> Usuario <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="<?php echo base_url();?>perfil">Perfil</a></li>
                                 <li class="divider"></li>

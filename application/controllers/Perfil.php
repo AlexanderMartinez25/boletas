@@ -35,11 +35,19 @@
         $this->load->view('usuario/perfil_view',['regiones'=>$regiones, 'comunas'=>$comunas, 'provincias'=>$provincias]);
         $this->load->view('layouts/footer',$data);
     }
-    
+   
     public function process(){
         
-        $this->form_validation->set_rules('nombre', 'Nombre', 'required');
-        $this->form_validation->set_rules('apellido', 'Apellido', 'required');
+        $tipo = $this->input->post('tipo_cliente');
+
+        if ($tipo==2) {
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required');
+            $this->form_validation->set_rules('apellido', 'Apellido', 'required');
+        }else{
+            $this->form_validation->set_rules('razon_social', 'Razón Social', 'required');
+            $this->form_validation->set_rules('nombre_fantasia', 'Nombre de Fantasia', 'required');
+        }
+        
         $this->form_validation->set_rules('telefono', 'Telefono', 'required');
         $this->form_validation->set_rules('region', 'Region', 'required');
         $this->form_validation->set_rules('provincia', 'Provincia', 'required');
