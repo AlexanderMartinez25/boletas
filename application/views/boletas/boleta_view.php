@@ -9,7 +9,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Ingreso de nueva boleta. <small> <i class="fa fa-info-circle text-warning"></i> Los campos son requeridos. </small></h5>
+                    <h5>Ingreso de nueva boleta. <small> <i class="fa fa-info-circle text-navy"></i> Los campos son requeridos. </small></h5>
                 </div>
                 
                 <div class="ibox-content">
@@ -30,7 +30,7 @@
                             <div id="resp" class="col-sm-12"></div>  
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
-                                    <label>Sucursal <i class="fa fa-info-circle text-warning"></i></label>
+                                    <label>Sucursal <i class="fa fa-info-circle text-navy"></i></label>
                                     <select name="sucursal" id="sucursal" class="form-control">
                                     <option value="">Seleccione</option>
                                         <?php
@@ -46,14 +46,14 @@
 
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
-                                    <label>Número <i class="fa fa-info-circle text-warning"></i></label> 
-                                    <input type="number" id="numero" name="numero" placeholder="Ingrese Número" class="form-control">
+                                    <label>Número <i class="fa fa-info-circle text-navy"></i></label> 
+                                    <input type="number" id="numero" min="1" name="numero" value="<?php echo $num_boleta;?>" placeholder="Ingrese Número" class="form-control">
                                 </div>
                             </div>
 
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
-                                    <label>Fecha <i class="fa fa-info-circle text-warning"></i></label> 
+                                    <label>Fecha <i class="fa fa-info-circle text-navy"></i></label> 
                                     <div class="input-group date">
                                         <input type="text" id="fecha" name="fecha" class="form-control" placeholder="dd/mm/yyyy">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -63,7 +63,7 @@
 
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
-                                    <label>Monto <i class="fa fa-info-circle text-warning"></i></label> 
+                                    <label>Monto <i class="fa fa-info-circle text-navy"></i></label> 
                                     <input type="text" id="monto" name="monto" placeholder="Ingrese Monto" class="form-control">
                                     <input type="hidden" id="monto_hide" name="monto_hide">
                                 </div>

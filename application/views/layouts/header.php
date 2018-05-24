@@ -26,6 +26,10 @@
                 <link href=".base_url('../assets/html/css/plugins/toastr/toastr.min.css')." rel='stylesheet'>
             ";
         }
+        if($ruta=="Ventas"){
+            echo"<link href=".base_url('../assets/html/css/plugins/datapicker/datepicker3.css')." rel='stylesheet'>
+            ";
+        }
         
     ?>
 </head>

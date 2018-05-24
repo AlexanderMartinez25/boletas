@@ -41,5 +41,17 @@ class Boleta_model extends CI_Model{
         return $query->num_rows();
     }
 
+    public function get_num_boleta()
+    {
+        $this->db->select('id_usuario, id_boleta, numero');
+        $this->db->where('id_usuario', $this->session->userdata('idUsuario'));
+        $this->db->order_by("id_boleta", "desc");
+        $this->db->limit(1);
+        $query = $this->db->get('boletas');
+       
+        if ($row = $query->row()) {
+            return $row->numero;
+        };
+    }
 }
 ?>

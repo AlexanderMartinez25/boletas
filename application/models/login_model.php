@@ -29,7 +29,7 @@ class Login_model extends CI_Model{
                     'idUsuario' => $row->idUsuario,
                     'nombre' => $row->nombre,
                     'apellido' => $row->apellido,
-                    'empresa' => $row->empresa,
+                    'razon_social' => $row->razon_social,
                     'validated' => true
                 );
             $this->session->set_userdata($data);

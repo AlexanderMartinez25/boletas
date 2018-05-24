@@ -63,7 +63,6 @@
             echo json_encode($info);
 
         }else{
-            // Validate the user can login
             $result = $this->perfil_model->update();
 
             // si $result = 1, se actualizaron los datos 
