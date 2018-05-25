@@ -17,6 +17,7 @@ $(document).on('ready',function(){
         var form = $(this);
 
         l.ladda( 'start' );
+        $('.spiner-example').removeClass('hide').fadeIn();
         
         $.ajax({                        
             url: form.attr('action'),
@@ -26,13 +27,17 @@ $(document).on('ready',function(){
             {   
                 l.ladda('stop');
                 $('#resp').html('');       
-
+                
                 // si no hay errores de formulario y se inserta en la bd
                 if(data.error==0){
-
+                    $('.table').removeClass('hide');
+                    $('#result').html('<td> '+data.ventas.num_boletas+'</td> <td>$ '+data.ventas.monto_neto_total+'</td> <td>$ '+data.ventas.debito_fiscal+'</td>');
                 }else if(data.error==1){
                     $('#resp').html(data.errores);
                 }
+
+                $('.spiner-example').fadeOut("slow");
+                
             },
             error: function(data)            
             {

@@ -4135,8 +4135,15 @@ a.close-canvas-menu:hover {
   z-index: 2050 !important;
 }
 .spiner-example {
-  height: 200px;
-  padding-top: 70px;
+  padding-top: 50px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffffe6;
 }
 /* MARGINS & PADDINGS */
 .p-xxs {
