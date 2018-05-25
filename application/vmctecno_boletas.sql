@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-05-2018 a las 12:06:02
+-- Tiempo de generación: 25-05-2018 a las 11:38:03
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -42,7 +42,9 @@ CREATE TABLE `boletas` (
 --
 
 INSERT INTO `boletas` (`id_boleta`, `sucursal`, `numero`, `fecha`, `monto`, `id_usuario`) VALUES
-(8, 15, 43, '2018-05-22', 12490000, 1);
+(8, 15, 43, '2018-05-22', 8000, 1),
+(9, 15, 44, '2018-05-22', 2000, 1),
+(10, 15, 44, '2018-05-22', 505690, 10);
 
 -- --------------------------------------------------------
 
@@ -555,16 +557,17 @@ CREATE TABLE `usuarios` (
   `tipo_cliente` int(1) NOT NULL COMMENT 'juridico o natural',
   `nombre_fantasia` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `tipo_contribuyente` int(1) NOT NULL,
-  `plan` int(11) NOT NULL COMMENT 'plan contratado'
+  `plan` int(11) NOT NULL COMMENT 'plan contratado',
+  `giro` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`idUsuario`, `email`, `nombre`, `apellido`, `rut`, `calle`, `telefono`, `password`, `numero`, `region`, `provincia`, `comuna`, `vivienda`, `razon_social`, `tipo_cliente`, `nombre_fantasia`, `tipo_contribuyente`, `plan`) VALUES
-(1, 'alex@gmail.com', '', '', '26014685-9', 'Sebastián Elcano', '(9)-61670734', '1234', 1752, 1, 2, 4, 'departamento', 'Global Corp SPA', 1, 'Global Corp', 3, 1),
-(10, '', 'test', '', '', '', '', '', 0, 10, 35, 204, '', '', 0, '', 2, 0);
+INSERT INTO `usuarios` (`idUsuario`, `email`, `nombre`, `apellido`, `rut`, `calle`, `telefono`, `password`, `numero`, `region`, `provincia`, `comuna`, `vivienda`, `razon_social`, `tipo_cliente`, `nombre_fantasia`, `tipo_contribuyente`, `plan`, `giro`) VALUES
+(1, 'alex@gmail.com', '', '', '26014685-9', 'Sebastián Elcano', '(9)-61670734', '1234', 1752, 7, 23, 91, 'departamento', 'Global Corp SPA', 1, 'Global Corp', 3, 1, 'telecomunicaciones'),
+(10, '', 'test', '', '', '', '', '', 0, 10, 35, 204, '', '', 0, '', 2, 0, '');
 
 --
 -- Índices para tablas volcadas
@@ -622,7 +625,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `boletas`
 --
 ALTER TABLE `boletas`
-  MODIFY `id_boleta` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_boleta` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `comunas`
