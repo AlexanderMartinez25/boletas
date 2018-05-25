@@ -42,6 +42,7 @@ class Perfil_model extends CI_Model{
                 'tipo_cliente' => $row->tipo_cliente,
                 'nombre_fantasia' => $row->nombre_fantasia,
                 'tipo_contribuyente' => $row->tipo_contribuyente,
+                'giro' => $row->giro,
                 // 'plan' => $row->plan
                 
             );
@@ -107,6 +108,7 @@ class Perfil_model extends CI_Model{
         $razon_social = $this->input->post('razon_social');
         $nombre_fantasia = $this->input->post('nombre_fantasia');
         $tipo_cliente = $this->input->post('tipo_cliente');
+        $giro = $this->input->post('giro');
         
         $data = array(
             'nombre' => $nombre,
@@ -124,6 +126,7 @@ class Perfil_model extends CI_Model{
             'razon_social' => $razon_social,
             'nombre_fantasia' => $nombre_fantasia,
             'tipo_contribuyente' => $tipo_contribuyente,
+            'giro' => $giro,
             
         );
     

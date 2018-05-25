@@ -55,6 +55,7 @@
         $this->form_validation->set_rules('calle', 'Calle', 'required');
         $this->form_validation->set_rules('numero', 'Número', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('giro', 'Giro', 'required');
 
         header('Content-type: application/json; charset=utf-8');
         if ($this->form_validation->run() == FALSE){

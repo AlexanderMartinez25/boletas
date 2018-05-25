@@ -123,6 +123,13 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Giro <i class="fa fa-info-circle text-navy"></i></label> 
+                                    <input type="text" id="giro" name="giro" placeholder="Ingrese Giro" value="<?= $datos_perfil['giro']?>" class="form-control">
+                                </div>
+                            </div>
                         </div>
                         <!-- / ENTIDAD -->
                         <div class="hr-line-dashed"></div>
