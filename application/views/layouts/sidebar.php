@@ -43,6 +43,12 @@
                             <li><a href="<?php echo base_url();?>sucursales">Sucursales</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="<?php echo base_url();?>libro_caja"><i class="fa fa-book"></i> <span class="nav-label">Libro de Caja</span> <span class="fa arrow"></span></a>
+                        <!-- <ul class="nav nav-second-level collapse">
+                            <li><a href="<?php echo base_url();?>libro_caja">Libro de Caja</a></li>
+                        </ul> -->
+                    </li>
                 </ul>
 
             </div>
