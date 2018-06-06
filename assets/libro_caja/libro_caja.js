@@ -1,6 +1,11 @@
 $(document).on('ready',function(){
     
     var l = $( '#guardar' ).ladda();
+    
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green'
+    });
 
     $('#fecha_operacion, #fecha_exi').datepicker({
         keyboardNavigation: false,

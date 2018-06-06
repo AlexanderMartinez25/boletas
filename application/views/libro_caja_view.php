@@ -61,29 +61,29 @@
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>IVA <i class="fa fa-info-circle text-navy"</i></label> 
-                                    <input type="number" id="iva" name="iva" value="19" placeholder="Ingrese IVA" class="form-control">
+                                    <label>IVA <i class="fa fa-info-circle text-navy"></i></label> 
+                                    <input type="text" id="iva" name="iva" value="19" placeholder="Ingrese IVA" class="form-control">
                                 </div>
                             </div>
                             
-                            <div class="col-sm-4">
+                            <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label>Monto Operaciones Exentas o no Gravadas con IVA <i class="fa fa-info-circle text-navy hide" id="alert-fantasia"></i></label> 
-                                    <input type="text" id="m_no_gravada" name="m_no_gravada" placeholder="Ingrese Nombre" class="form-control">
+                                    <label>Monto Operaciones Exentas o no Gravadas con IVA <i class="fa fa-info-circle text-navy hide"></i></label> 
+                                    <input type="text" id="m_no_gravada" name="m_no_gravada" placeholder="Ingrese Monto" class="form-control">
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Monto Total <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="number" id="monto_total" name="monto_total" placeholder="Ingrese Monto Total" class="form-control">
+                                    <input type="text" id="monto_total" name="monto_total" placeholder="Ingrese Monto Total" class="form-control">
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Monto Percibido <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="number" id="monto_percibido" name="monto_percibido" placeholder="Ingrese Número" class="form-control">
+                                    <input type="text" id="monto_percibido" name="monto_percibido" placeholder="Ingrese Monto" class="form-control">
                                 </div>
                             </div>
                             
@@ -96,30 +96,31 @@
                             
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Entidad Relacionada<i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="text" id="entidad_relacionada" name="entidad_relacionada" placeholder="Entidad Relacionada" class="form-control">
+                                    <div class="checkbox checkbox-primary">
+                                        <input id="entidad_relacionada" type="checkbox">
+                                        <label for="entidad_relacionada">
+                                            Operación Entidad Relacionada
+                                        </label>
+                                    </div> 
                                 </div>
                             </div>
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Percepción <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="text" id="percepcion" name="percepcion" placeholder="Ingrese Percepción" class="form-control">
+                                    <div class="checkbox checkbox-primary">
+                                        <input id="percepcion" type="checkbox">
+                                        <label for="percepcion">
+                                            Operación pactada con pago a plazo
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Operación pactada con pago a plazo <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="text" id="pago_plazo" name="pago_plazo" placeholder="Ingrese Número" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Fecha de Exigibilidad del Pago <i class="fa fa-info-circle text-navy"></i></label> 
                                     <div class="input-group date">
-                                        <input type="text" id="fecha_exi" name="fecha_exi" class="form-control" placeholder="dd/mm/yyyy">
+                                        <input type="text" id="fecha_exi" name="fecha_exi" class="form-control" disabled placeholder="dd/mm/yyyy">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     </div>
                                 </div>
@@ -127,22 +128,33 @@
 
                             <div class="col-sm-4">
                                 <div class="form-group">
+                                    <div class="checkbox checkbox-primary">
+                                        <input id="percepcion" type="checkbox">
+                                        <label for="percepcion">
+                                            Percepción
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
                                     <label>Monto Ingreso <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="number" id="monto_ingreso" name="monto_ingreso" placeholder="Monto Ingreso" class="form-control">
+                                    <input type="text" id="monto_ingreso" name="monto_ingreso" placeholder="Monto Ingreso" class="form-control">
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Monto Egreso <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="number" id="monto_egreso" name="monto_egreso" placeholder="Monto Egreso" class="form-control">
+                                    <input type="text" id="monto_egreso" name="monto_egreso" placeholder="Monto Egreso" class="form-control">
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Saldo <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="number" id="saldo" name="saldo" placeholder="Ingrese Percepción" class="form-control">
+                                    <input type="text" id="saldo" name="saldo" placeholder="Ingrese Saldo" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-12">

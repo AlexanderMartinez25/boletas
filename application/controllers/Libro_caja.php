@@ -21,7 +21,7 @@
         
         $this->load->view('layouts/header',$data);
         $this->load->view('layouts/sidebar',$data);
-        $this->load->view('usuario/perfil_view',$data);
+        $this->load->view('libro_caja_view',$data);
         $this->load->view('layouts/footer',$data);
     }
    
@@ -34,7 +34,7 @@
         $this->form_validation->set_rules('monto_neto', 'Monto neto', 'required');
         $this->form_validation->set_rules('iva', 'IVA', 'required');
         $this->form_validation->set_rules('m_no_gravada', 'Monto operaciones exentas o no gravadas con IVA', 'required');
-        $this->form_validation->set_rules('monto_total', 'Monto total', 'required');
+        $this->form_validation->set_rules('monto_total', 'Monto total', 'required|matches[m_no_gravada]');
         $this->form_validation->set_rules('monto_percibido', 'Monto percibido', 'required');
         $this->form_validation->set_rules('glosa_operacion', 'Glosa de operación', 'required');
         $this->form_validation->set_rules('monto_ingreso', 'Monto ingreso', 'required|matches[monto_percibido]');

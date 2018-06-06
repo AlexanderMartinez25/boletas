@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-05-2018 a las 11:38:03
+-- Tiempo de generación: 06-06-2018 a las 11:12:19
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -412,6 +412,34 @@ INSERT INTO `comunas` (`comuna_id`, `comuna_nombre`, `provincia_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `libro_caja`
+--
+
+CREATE TABLE `libro_caja` (
+  `id_libro_caja` bigint(20) UNSIGNED NOT NULL,
+  `documento` int(2) NOT NULL,
+  `tipo_documento` int(2) NOT NULL,
+  `rut_emisor` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_operacion` date NOT NULL,
+  `monto_neto` int(12) NOT NULL,
+  `iva` int(12) NOT NULL,
+  `m_no_gravada` int(11) NOT NULL COMMENT 'Monto operaciones exentas o no gravadas con IVA',
+  `monto_total` int(11) NOT NULL COMMENT '(Monto percibido o pagado',
+  `monto_percibido` int(11) NOT NULL,
+  `glosa_operacion` int(11) NOT NULL,
+  `entidad_relacionada` tinyint(1) NOT NULL COMMENT 'Operación con entidad relacionada',
+  `percepcion` tinyint(1) NOT NULL COMMENT '(Percepción o pago proviene de operación devengada con anterioridad al ingreso al régimen simplificado o al 31.12.2014',
+  `pago_plazo` tinyint(1) NOT NULL COMMENT 'Operación pactada con pago a plazo',
+  `fecha_exi` date NOT NULL COMMENT 'Fecha de exigibilidad del pago',
+  `monto_ingreso` int(12) NOT NULL,
+  `monto_egreso` int(12) NOT NULL,
+  `saldo` int(12) NOT NULL,
+  `id_usuario` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `provincias`
 --
 
@@ -536,6 +564,59 @@ INSERT INTO `sucursales` (`id_sucursal`, `nombre`, `id_usuario`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_documento`
+--
+
+CREATE TABLE `tipo_documento` (
+  `id_tipo_documento` int(3) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_documento`
+--
+
+INSERT INTO `tipo_documento` (`id_tipo_documento`, `nombre`) VALUES
+(0, ''),
+(30, 'Factura'),
+(32, 'factura de venta bienes y servicios no afectos o exentos de IVA'),
+(33, 'Factura Electrónica'),
+(34, 'Factura No Afecta o Exenta Electrónica'),
+(35, 'Boleta'),
+(38, 'Boleta exenta'),
+(39, 'Boleta Electrónica'),
+(40, 'Liquidación Factura'),
+(41, ' Boleta Exenta Electrónica'),
+(43, 'Liquidación-Factura Electrónica'),
+(45, ' factura de compra'),
+(50, 'Guía de Despacho'),
+(52, 'Guía de Despacho Electrónica'),
+(55, 'nota de débito'),
+(56, 'Nota de Débito Electrónica'),
+(60, 'nota de crédito'),
+(61, 'Nota de Crédito Electrónica'),
+(103, 'Liquidación '),
+(110, 'Factura de Exportación Electrónica'),
+(111, 'Nota de Débito de Exportación Electrónica '),
+(112, 'Nota de Crédito de Exportación Electrónica'),
+(801, 'Orden de Compra'),
+(802, ' Nota de pedido '),
+(803, 'Contrato'),
+(804, 'Resolución'),
+(805, 'Proceso ChileCompra'),
+(806, 'Ficha ChileCompra'),
+(807, '807 DUS 808 B/L (Conocimiento de embarque)'),
+(809, 'AWB (Air Will Bill)'),
+(810, 'MIC/DTA'),
+(811, 'Carta de Porte'),
+(812, 'Resolución del SNA donde califica Servicios de Exportación'),
+(813, 'Pasaporte'),
+(814, 'Certificado de Depósito Bolsa Prod. Chile.'),
+(815, 'Vale de Prenda Bolsa Prod. Chile ');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -590,6 +671,14 @@ ALTER TABLE `comunas`
   ADD KEY `provincia_id` (`provincia_id`);
 
 --
+-- Indices de la tabla `libro_caja`
+--
+ALTER TABLE `libro_caja`
+  ADD PRIMARY KEY (`id_libro_caja`),
+  ADD UNIQUE KEY `id_libro_caja` (`id_libro_caja`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
 -- Indices de la tabla `provincias`
 --
 ALTER TABLE `provincias`
@@ -609,6 +698,12 @@ ALTER TABLE `sucursales`
   ADD PRIMARY KEY (`id_sucursal`),
   ADD UNIQUE KEY `id` (`id_sucursal`),
   ADD KEY `sucursales_ibfk_2` (`id_usuario`);
+
+--
+-- Indices de la tabla `tipo_documento`
+--
+ALTER TABLE `tipo_documento`
+  ADD PRIMARY KEY (`id_tipo_documento`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -632,6 +727,12 @@ ALTER TABLE `boletas`
 --
 ALTER TABLE `comunas`
   MODIFY `comuna_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
+
+--
+-- AUTO_INCREMENT de la tabla `libro_caja`
+--
+ALTER TABLE `libro_caja`
+  MODIFY `id_libro_caja` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `provincias`
@@ -673,6 +774,12 @@ ALTER TABLE `boletas`
 --
 ALTER TABLE `comunas`
   ADD CONSTRAINT `comunas_ibfk_1` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`provincia_id`);
+
+--
+-- Filtros para la tabla `libro_caja`
+--
+ALTER TABLE `libro_caja`
+  ADD CONSTRAINT `libro_caja_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `provincias`
