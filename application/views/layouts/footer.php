@@ -59,6 +59,7 @@
             echo "<script type='text/javascript' src='".base_url()."../assets/html/js/plugins/price-format/jquery.priceformat.min.js'></script>
             <script type='text/javascript' src='".base_url()."../assets/html/js/plugins/datapicker/bootstrap-datepicker.js'></script>
             <script type='text/javascript' src='".base_url()."../assets/html/js/plugins/datapicker/bootstrap-datepicker.es.js'></script>
+            <script src='".base_url()."../assets/html/js/plugins/jasny/jasny-bootstrap.min.js'></script>
             <script src='".base_url()."../assets/libro_caja/libro_caja.js'></script>";
         break;
     }

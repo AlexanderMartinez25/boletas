@@ -6,6 +6,8 @@
     function __construct(){
         parent::__construct();
         $this->_check_isvalidated();
+        $this->load->model('libro_caja_model');
+
         /* Load form helper */ 
         $this->load->helper(array('form'));
 
@@ -18,10 +20,12 @@
     public function index(){
         $data['ruta'] = 'Libro de Caja';
         $data['titulo'] = 'Libro de Caja';
+        $tipo_documento = $this->libro_caja_model->get_tipo_documento();
+        $glosa_operacion = $this->libro_caja_model->get_glosa_operacion();
         
         $this->load->view('layouts/header',$data);
         $this->load->view('layouts/sidebar',$data);
-        $this->load->view('libro_caja_view',$data);
+        $this->load->view('libro_caja_view',['tipo_documento'=>$tipo_documento, 'glosa_operacion'=>$glosa_operacion]);
         $this->load->view('layouts/footer',$data);
     }
    
@@ -41,7 +45,7 @@
         $this->form_validation->set_rules('monto_egreso', 'Monto egreso', 'required|matches[monto_percibido]');
         $this->form_validation->set_rules('saldo', 'Saldo', 'required');
 
-        if ($this->input->post("pago_plazo")) {
+        if ($this->input->post("plazo_pago")==1) {
             $this->form_validation->set_rules('fecha_exi', 'Fecha de exigibilidad del pago', 'required');
         }
         

@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*  Description: Perfil model class
+/*  Description: Libro_caja_model class
  */
-class Perfil_model extends CI_Model{
+class Libro_caja_model extends CI_Model{
     function __construct(){
         parent::__construct();
         $this->load->database();
@@ -21,10 +21,10 @@ class Perfil_model extends CI_Model{
         $monto_total = $this->input->post('monto_total');
         $monto_percibido = $this->input->post('monto_percibido');
         $glosa_operacion = $this->input->post('glosa_operacion');
-        $entidad_relacionada = $this->input->post('entidad_relacionada');
-        $percepcion = $this->input->post('percepcion');
-        $pago_plazo = $this->input->post('pago_plazo');
-        $fecha_exi = $this->input->post('fecha_exi');
+        $entidad_relacionada = ($this->input->post('entidad_relacionada')!=1) ? 0 : 1;
+        $percepcion = ($this->input->post('percepcion')!=1) ? 0 : 1;
+        $plazo_pago = ($this->input->post('plazo_pago')!=1) ? 0 : 1;
+        $fecha_exi = date("Y-m-d", strtotime(str_replace('/', '-', $this->input->post('fecha_exi'))));
         $monto_ingreso = $this->input->post('monto_ingreso');
         $monto_egreso = $this->input->post('monto_egreso');
         $saldo = $this->input->post('saldo');
@@ -42,7 +42,7 @@ class Perfil_model extends CI_Model{
             'glosa_operacion' => $glosa_operacion,
             'entidad_relacionada' => $entidad_relacionada,
             'percepcion' => $percepcion,
-            'pago_plazo' => $pago_plazo,
+            'plazo_pago' => $plazo_pago,
             'fecha_exi' => $fecha_exi,
             'monto_ingreso' => $monto_ingreso,
             'monto_egreso' => $monto_egreso,
@@ -55,6 +55,18 @@ class Perfil_model extends CI_Model{
         }else{
             return 1;
         }
+    }
+
+    public function get_tipo_documento() {
+        $query = $this->db->get('tipo_documento');
+       
+        return $row = $query->result();
+    }
+
+    public function get_glosa_operacion() {
+        $query = $this->db->get('glosa_operacion');
+       
+        return $row = $query->result();
     }
 }
 ?>

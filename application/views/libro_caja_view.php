@@ -10,12 +10,12 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Registre ingreso/egreso. <small> <i class="fa fa-info-circle text-navy"></i> Los campos son requeridos. </small></h5>
+                    <h5>Registre Ingreso / Egreso. <small> <i class="fa fa-info-circle text-navy"></i> Los campos son requeridos. </small></h5>
                 </div>
 
                 <div class="ibox-content">
                     <form method='post' role="form" action="<?php echo base_url();?>/libro_caja/process" id="libroCajaForm">
-                        <div id="resp" class="col-sm-12"></div>  
+                        <div id="resp"></div>  
                         <?php 
                             echo validation_errors(); 
                             echo form_open('form'); 
@@ -23,22 +23,33 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Documento <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="text" id="documento" name="documento" placeholder="Ingrese Documento" class="form-control">
+                                    <label>Documento <i class="fa fa-info-circle text-navy"></i></label>
+                                    <select name="documento" id="documento" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <option value="1">Ingreso</option>
+                                        <option value="2">Egreso</option>
+                                    </select>
                                 </div>
                             </div>
                                 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Tipo Documento <i class="fa fa-info-circle hide text-navy"></i></label> 
-                                    <input type="text" id="tipo_documento" name="tipo_documento" placeholder="Ingrese Tipo Documento" class="form-control">
+                                    <label>Tipo Documento <i class="fa fa-info-circle text-navy"></i></label> 
+                                    <select id="tipo_documento" name="tipo_documento" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <?php
+                                            foreach ($tipo_documento as $tipo) {
+                                                echo "<option value=".$tipo->id_tipo_documento.">".$tipo->nombre."</option>";
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Rut Emisor <i class="fa fa-info-circle hide text-navy"></i></label> 
-                                    <input type="text" id="rut_emisor" name="rut_emisor" placeholder="Ingrese Rut Emisor" class="form-control">
+                                    <label>Rut Emisor <i class="fa fa-info-circle text-navy"></i></label> 
+                                    <input type="text" id="rut_emisor" name="rut_emisor" data-mask="99999999-9" placeholder="Ingrese Rut Emisor" class="form-control">
                                 </div>
                             </div>
 
@@ -55,7 +66,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Monto Neto <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="number" id="monto_neto" name="monto_neto" placeholder="Ingrese Monto Neto" class="form-control">
+                                    <input type="text" id="monto_neto" name="monto_neto" placeholder="Ingrese Monto Neto" class="form-control">
                                 </div>
                             </div>
 
@@ -68,7 +79,7 @@
                             
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label>Monto Operaciones Exentas o no Gravadas con IVA <i class="fa fa-info-circle text-navy hide"></i></label> 
+                                    <label>Monto Operaciones Exentas o no Gravadas con IVA <i class="fa fa-info-circle text-navy"></i></label> 
                                     <input type="text" id="m_no_gravada" name="m_no_gravada" placeholder="Ingrese Monto" class="form-control">
                                 </div>
                             </div>
@@ -89,15 +100,26 @@
                             
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Glosa Operación <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <input type="text" id="glosa_operacion" name="glosa_operacion" placeholder="Glosa Operación" class="form-control">
+                                    <label>Glosa Operación <i class="fa fa-info-circle text-navy"></i></label>
+                                    <select name="glosa_operacion" id="glosa_operacion" class="form_control">
+                                        <option value="">Seleccione</option>
+                                        <?php
+                                            foreach ($glosa_operacion as $tipo) {
+                                                echo "<option value=".$tipo->id_glosa_operacion.">".$tipo->nombre."</option>";
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
                             
+                            <div class="col-sm-12">
+                                <div class="hr-line-dashed"></div>
+                            </div>
+
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="checkbox checkbox-primary">
-                                        <input id="entidad_relacionada" type="checkbox">
+                                        <input id="entidad_relacionada" name="entidad_relacionada" value="1" type="checkbox">
                                         <label for="entidad_relacionada">
                                             Operación Entidad Relacionada
                                         </label>
@@ -105,23 +127,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="checkbox checkbox-primary">
-                                        <input id="percepcion" type="checkbox">
-                                        <label for="percepcion">
+                                        <input id="plazo_pago" name="plazo_pago" value="1" type="checkbox" onclick="toggle()">
+                                        <label for="plazo_pago">
                                             Operación pactada con pago a plazo
                                         </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Fecha de Exigibilidad del Pago <i class="fa fa-info-circle text-navy"></i></label> 
-                                    <div class="input-group date">
-                                        <input type="text" id="fecha_exi" name="fecha_exi" class="form-control" disabled placeholder="dd/mm/yyyy">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -129,12 +141,26 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="checkbox checkbox-primary">
-                                        <input id="percepcion" type="checkbox">
+                                        <input id="percepcion" name="percepcion" value="1" type="checkbox">
                                         <label for="percepcion">
-                                            Percepción
+                                            Percepción o pago proviene de operación devengada
                                         </label>
                                     </div>
                                 </div>
+                            </div>
+                            
+                            <div class="col-sm-8 col-md-">
+                                <div class="form-group">
+                                    <label>Fecha de Exigibilidad del Pago <i class="fa fa-info-circle text-navy hide" id="showExi"></i></label> 
+                                    <div class="input-group date">
+                                        <input type="text" id="fecha_exi" name="fecha_exi" class="form-control" disabled placeholder="dd/mm/yyyy">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="hr-line-dashed"></div>
                             </div>
 
                             <div class="col-sm-4">
@@ -158,7 +184,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <button class="ladda-button ladda-button-demo btn btn-primary pull-right" data-style="zoom-in" id='actualiza' disabled ='disabled'  type="submit"><strong>Actualizar</strong></button>
+                                <button class="ladda-button ladda-button-demo btn btn-primary pull-right" data-style="zoom-in" id='guardar' type="submit"><strong>Guardar</strong></button>
                             </div>
                             
                         </div>
