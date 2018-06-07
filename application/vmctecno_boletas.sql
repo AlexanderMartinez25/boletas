@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-06-2018 a las 11:12:19
+-- Tiempo de generación: 07-06-2018 a las 09:52:24
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -412,12 +412,32 @@ INSERT INTO `comunas` (`comuna_id`, `comuna_nombre`, `provincia_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `glosa_operacion`
+--
+
+CREATE TABLE `glosa_operacion` (
+  `id_glosa_operacion` int(3) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `glosa_operacion`
+--
+
+INSERT INTO `glosa_operacion` (`id_glosa_operacion`, `nombre`) VALUES
+(1, 'venta afecta a IVA'),
+(2, 'exportación'),
+(3, 'compra exenta de IVA');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `libro_caja`
 --
 
 CREATE TABLE `libro_caja` (
   `id_libro_caja` bigint(20) UNSIGNED NOT NULL,
-  `documento` int(2) NOT NULL,
+  `documento` int(1) NOT NULL COMMENT '1 Ingreso, 2 Egreso',
   `tipo_documento` int(2) NOT NULL,
   `rut_emisor` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_operacion` date NOT NULL,
@@ -429,13 +449,21 @@ CREATE TABLE `libro_caja` (
   `glosa_operacion` int(11) NOT NULL,
   `entidad_relacionada` tinyint(1) NOT NULL COMMENT 'Operación con entidad relacionada',
   `percepcion` tinyint(1) NOT NULL COMMENT '(Percepción o pago proviene de operación devengada con anterioridad al ingreso al régimen simplificado o al 31.12.2014',
-  `pago_plazo` tinyint(1) NOT NULL COMMENT 'Operación pactada con pago a plazo',
+  `plazo_pago` tinyint(1) NOT NULL COMMENT 'Operación pactada con pago a plazo',
   `fecha_exi` date NOT NULL COMMENT 'Fecha de exigibilidad del pago',
   `monto_ingreso` int(12) NOT NULL,
   `monto_egreso` int(12) NOT NULL,
   `saldo` int(12) NOT NULL,
   `id_usuario` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `libro_caja`
+--
+
+INSERT INTO `libro_caja` (`id_libro_caja`, `documento`, `tipo_documento`, `rut_emisor`, `fecha_operacion`, `monto_neto`, `iva`, `m_no_gravada`, `monto_total`, `monto_percibido`, `glosa_operacion`, `entidad_relacionada`, `percepcion`, `plazo_pago`, `fecha_exi`, `monto_ingreso`, `monto_egreso`, `saldo`, `id_usuario`) VALUES
+(1, 1, 30, '22222222-2', '2018-06-08', 0, 19, 0, 0, 0, 1, 1, 1, 1, '2018-06-28', 0, 0, 0, 1),
+(2, 1, 32, '25686840-6', '2018-05-31', 12, 19, 500, 500, 500, 3, 0, 0, 0, '1970-01-01', 500, 500, 500, 1);
 
 -- --------------------------------------------------------
 
@@ -577,7 +605,6 @@ CREATE TABLE `tipo_documento` (
 --
 
 INSERT INTO `tipo_documento` (`id_tipo_documento`, `nombre`) VALUES
-(0, ''),
 (30, 'Factura'),
 (32, 'factura de venta bienes y servicios no afectos o exentos de IVA'),
 (33, 'Factura Electrónica'),
@@ -671,12 +698,20 @@ ALTER TABLE `comunas`
   ADD KEY `provincia_id` (`provincia_id`);
 
 --
+-- Indices de la tabla `glosa_operacion`
+--
+ALTER TABLE `glosa_operacion`
+  ADD PRIMARY KEY (`id_glosa_operacion`);
+
+--
 -- Indices de la tabla `libro_caja`
 --
 ALTER TABLE `libro_caja`
   ADD PRIMARY KEY (`id_libro_caja`),
   ADD UNIQUE KEY `id_libro_caja` (`id_libro_caja`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `tipo_documento` (`tipo_documento`),
+  ADD KEY `glosa_operacion` (`glosa_operacion`);
 
 --
 -- Indices de la tabla `provincias`
@@ -732,7 +767,7 @@ ALTER TABLE `comunas`
 -- AUTO_INCREMENT de la tabla `libro_caja`
 --
 ALTER TABLE `libro_caja`
-  MODIFY `id_libro_caja` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_libro_caja` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `provincias`
@@ -779,7 +814,10 @@ ALTER TABLE `comunas`
 -- Filtros para la tabla `libro_caja`
 --
 ALTER TABLE `libro_caja`
-  ADD CONSTRAINT `libro_caja_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `libro_caja_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `libro_caja_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`idUsuario`),
+  ADD CONSTRAINT `libro_caja_ibfk_3` FOREIGN KEY (`tipo_documento`) REFERENCES `tipo_documento` (`id_tipo_documento`),
+  ADD CONSTRAINT `libro_caja_ibfk_4` FOREIGN KEY (`glosa_operacion`) REFERENCES `glosa_operacion` (`id_glosa_operacion`);
 
 --
 -- Filtros para la tabla `provincias`
