@@ -9,7 +9,7 @@
         $this->load->model('libro_caja_model');
 
         /* Load form helper */ 
-        $this->load->helper(array('form'));
+        $this->load->helper(array('form', 'url'));
 
         /* Load form validation library */ 
         $this->load->library('form_validation');
@@ -62,6 +62,47 @@
             // si $result = 1, se actualizaron los datos 
             $info = array('error'=>0, 'insert' => $result);
             echo json_encode($info);
+        }
+    }
+
+    public function analizar(){
+
+        $this->form_validation->set_rules('documento_sii', 'Documento SII', 'required');
+        $this->form_validation->set_rules('documento_sistema', 'Documento del sistema', 'required');
+
+        header('Content-type: application/json; charset=utf-8');
+        if ($this->form_validation->run() == FALSE){
+            // indicamos que hay errores de entrada en los inputs
+            $info = array('error'=>1, 'errores' => validation_errors());
+            echo json_encode($info);
+
+        }else{
+            $result = $this->libro_caja_model->insert_excel();
+
+            // si $result = 1, se actualizaron los datos 
+            $info = array('error'=>0, 'insert_excel' => $result);
+            echo json_encode($info);
+        }
+    }
+
+    public function do_upload()
+    {   
+        $config['upload_path']    = './uploads/';
+        $config['allowed_types']  = 'csv';
+        $config['max_size']       = 100;
+        $config['max_width']      = 1024;
+        $config['max_height']     = 768;
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('documento_sii'))
+        {
+           echo $error = array('error' => $this->upload->display_errors());
+        }
+        else
+        {
+            echo $data = array('upload_data' => $this->upload->data());
+
         }
     }
 

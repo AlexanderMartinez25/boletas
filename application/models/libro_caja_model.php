@@ -57,6 +57,9 @@ class Libro_caja_model extends CI_Model{
         }
     }
 
+    public function insert_csv() {
+        
+    }
     public function get_tipo_documento() {
         $query = $this->db->get('tipo_documento');
        

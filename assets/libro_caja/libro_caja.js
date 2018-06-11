@@ -1,6 +1,7 @@
 $(document).on('ready',function(){
     
     var l = $( '#guardar' ).ladda();
+    var A = $( '#analizar' ).ladda();
     
     $('#fecha_operacion, #fecha_exi').datepicker({
         keyboardNavigation: false,
@@ -48,6 +49,54 @@ $(document).on('ready',function(){
                 }else if(data.insert!=1){
                     swal({
                         title: "Error al insertar datos",
+                        text: "Para continuar presione ok",
+                        type: "warning"
+                    });
+                }
+                
+            },
+            error: function(data)            
+            {
+                console.log(data);
+            }
+            
+        });
+    });
+
+    // envio de archivo
+    $("#analizaForm").submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+
+        A.ladda( 'start' );
+        
+        $.ajax({                        
+            url: form.attr('action'),
+            type: form.attr('method'),                 
+            data: form.serialize(),
+            mimeType: "multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData: false,
+            success: function(data)            
+            {   
+                A.ladda('stop');
+                $('#resp2').html('');       
+
+               // si no hay errores de formulario y se inserta en la bd
+                if(data.error==0 && data.insert==1){
+                    swal({
+                        title: "Datos insertados",
+                        text: "Para continuar presione ok",
+                        type: "success"
+                    });
+                    $("#analizaForm")[0].reset();
+
+                }else if(data.error==1){
+                    $('#resp2').html('<div class="text-danger"><i class="fa fa-info-circle"></i>'+ data.errores.error +'</div>');       
+                }else if(data.insert!=1){
+                    swal({
+                        title: "Error al analizar archivos",
                         text: "Para continuar presione ok",
                         type: "warning"
                     });
