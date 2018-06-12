@@ -206,7 +206,7 @@
                                 <p>Agregue los correspondientes documentos para analizar. </p>
                                 
                                 <div class="hr-line-dashed"></div>
-                                <form method='post' role="form" action="<?php echo base_url();?>/libro_caja/do_upload" id="analizaForm">
+                                <form method='post' role="form" action="<?php echo base_url();?>/libro_caja/do_upload"  enctype="multipart/form-data" id="analizaForm">
                                     <div id="resp2"></div>  
                                     <?php 
                                         echo validation_errors(); 

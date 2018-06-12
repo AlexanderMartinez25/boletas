@@ -87,21 +87,35 @@
 
     public function do_upload()
     {   
-        $config['upload_path']    = './uploads/';
-        $config['allowed_types']  = 'csv';
-        $config['max_size']       = 100;
-        $config['max_width']      = 1024;
-        $config['max_height']     = 768;
+        $config['upload_path']    =  './uploads/';
+        $config['allowed_types']  = 'pdf';
+        $config['max_size']       = 1000;
+        $config['max_width']      = 10240;
+        $config['max_height']     = 7680;
 
         $this->load->library('upload', $config);
 
-        if ( ! $this->upload->do_upload('documento_sii'))
+        header('Content-type: application/json; charset=utf-8');
+
+        if ($this->upload->do_upload('documento_sii'))
         {
-           echo $error = array('error' => $this->upload->display_errors());
+            $sii = 1;
         }
         else
         {
-            echo $data = array('upload_data' => $this->upload->data());
+            $sii = 0;
+
+        }
+
+        if ($this->upload->do_upload('documento_sistema'))
+        {
+            $data = array('upload_data' => $this->upload->data());
+            echo json_encode($data);
+        }
+        else
+        {
+            $error = array('error' => $this->upload->display_errors());
+            echo json_encode($error);
 
         }
     }

@@ -69,15 +69,16 @@ $(document).on('ready',function(){
         var form = $(this);
 
         A.ladda( 'start' );
-        
+        var formData = new FormData(document.getElementById("analizaForm"));
+
         $.ajax({                        
             url: form.attr('action'),
-            type: form.attr('method'),                 
-            data: form.serialize(),
-            mimeType: "multipart/form-data",
-                contentType: false,
-                cache: false,
-                processData: false,
+            type: form.attr('method'),
+            cache: false,
+            contentType: false,
+	        processData: false,                 
+            data: formData,
+
             success: function(data)            
             {   
                 A.ladda('stop');
