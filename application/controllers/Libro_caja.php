@@ -65,59 +65,59 @@
         }
     }
 
-    public function analizar(){
+    public function analizar($archivo){
 
-        $this->form_validation->set_rules('documento_sii', 'Documento SII', 'required');
-        $this->form_validation->set_rules('documento_sistema', 'Documento del sistema', 'required');
+        // header('Content-type: application/json; charset=utf-8');
+        // $result = $this->libro_caja_model->insert_csv();
 
-        header('Content-type: application/json; charset=utf-8');
-        if ($this->form_validation->run() == FALSE){
-            // indicamos que hay errores de entrada en los inputs
-            $info = array('error'=>1, 'errores' => validation_errors());
-            echo json_encode($info);
-
-        }else{
-            $result = $this->libro_caja_model->insert_excel();
-
-            // si $result = 1, se actualizaron los datos 
-            $info = array('error'=>0, 'insert_excel' => $result);
-            echo json_encode($info);
+        // // si $result = 1, se actualizaron los datos 
+        // $info = array('error'=>0, 'insert_csv' => $result);
+        // echo json_encode($info);
+        // }
+        $fila = 1;
+        if (($gestor = fopen('./uploads/'.$archivo['file_name'], "r")) !== FALSE) {
+            while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+                $numero = count($datos);
+                $fila++;
+                for ($c=1; $c < $numero; $c++) {
+                    echo $datos[$c];
+                }
+            }
+            fclose($gestor);
         }
     }
 
     public function do_upload()
     {   
         $config['upload_path']    =  './uploads/';
-        $config['allowed_types']  = 'pdf';
+        $config['allowed_types']  = 'csv';
         $config['max_size']       = 1000;
         $config['max_width']      = 10240;
         $config['max_height']     = 7680;
 
         $this->load->library('upload', $config);
 
-        header('Content-type: application/json; charset=utf-8');
+        // header('Content-type: application/json; charset=utf-8');
 
-        if ($this->upload->do_upload('documento_sii'))
-        {
-            $sii = 1;
-        }
-        else
-        {
-            $sii = 0;
-
-        }
-
-        if ($this->upload->do_upload('documento_sistema'))
-        {
-            $data = array('upload_data' => $this->upload->data());
-            echo json_encode($data);
-        }
-        else
-        {
+        if (! $this->upload->do_upload('documento_sii')){
             $error = array('error' => $this->upload->display_errors());
             echo json_encode($error);
-
+            return;
         }
+
+        // insertamos los datos en la BD documento_sii
+        $this->libro_caja_model->insert_csv( $this->upload->data() );
+
+        if (! $this->upload->do_upload('documento_sistema')){ 
+            $error = array('error' => $this->upload->display_errors());
+            echo json_encode($error);
+            return;
+        }
+
+        echo $data = $this->libro_caja_model->insert_csv( $this->upload->data() );
+
+        // $data = array('upload_data' => $this->upload->data(), 'analisis' =>$this->analizar());
+        // echo json_encode($data);
     }
 
     private function _check_isvalidated(){

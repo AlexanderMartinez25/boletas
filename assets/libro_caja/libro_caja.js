@@ -85,20 +85,21 @@ $(document).on('ready',function(){
                 $('#resp2').html('');       
 
                // si no hay errores de formulario y se inserta en la bd
-                if(data.error==0 && data.insert==1){
+                if(data.upload_data){
                     swal({
-                        title: "Datos insertados",
-                        text: "Para continuar presione ok",
+                        title: "Datos insertados, analizando...",
+                        showConfirmButton: false,
+                        timer: 4500,
                         type: "success"
                     });
                     $("#analizaForm")[0].reset();
 
-                }else if(data.error==1){
-                    $('#resp2').html('<div class="text-danger"><i class="fa fa-info-circle"></i>'+ data.errores.error +'</div>');       
-                }else if(data.insert!=1){
+                }else{
+                    let format = data.error.replace("<p>", ""),
+                        msj = format.replace("</p>", "");
                     swal({
                         title: "Error al analizar archivos",
-                        text: "Para continuar presione ok",
+                        text: msj,
                         type: "warning"
                     });
                 }

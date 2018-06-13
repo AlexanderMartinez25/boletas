@@ -57,8 +57,31 @@ class Libro_caja_model extends CI_Model{
         }
     }
 
-    public function insert_csv() {
-        
+    public function insert_csv($archivo) {
+
+        $fila = 1;
+        if (($gestor = fopen('./uploads/'.$archivo['file_name'], "r")) !== FALSE) {
+            while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+                $numero = count($datos);
+                $fila++;
+                for ($c=1; $c < $numero; $c++) {
+                    echo $datos[$c];
+                    // falta hacer el explode y luego array push
+                }
+            }
+            fclose($gestor);
+        }
+
+        // $data = array(
+        //     'numero' => $documento,
+        //     'id_usuario' => $this->session->userdata('idUsuario')
+        // );
+
+        // if ( ! $this->db->insert('libro_caja', $data)){
+        //     return $error = $this->db->error();
+        // }else{
+        //     return 1;
+        // }
     }
     public function get_tipo_documento() {
         $query = $this->db->get('tipo_documento');
