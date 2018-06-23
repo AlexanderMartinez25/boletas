@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2018 a las 09:52:24
+-- Tiempo de generación: 23-06-2018 a las 11:00:00
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -412,6 +412,62 @@ INSERT INTO `comunas` (`comuna_id`, `comuna_nombre`, `provincia_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `documento_sii`
+--
+
+CREATE TABLE `documento_sii` (
+  `id_documento_sii` bigint(20) UNSIGNED NOT NULL,
+  `numero` int(7) NOT NULL,
+  `tipo_documento` int(3) NOT NULL,
+  `tipo_compra` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `rut_proveedor` varchar(11) COLLATE utf8_spanish_ci NOT NULL,
+  `razon_social` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `folio` int(11) NOT NULL,
+  `fecha_documento` date NOT NULL,
+  `monto_exento` int(11) NOT NULL,
+  `monto_neto` int(11) NOT NULL,
+  `monto_iva_recuperable` int(11) NOT NULL,
+  `monto_iva_no_recuperable` int(11) NOT NULL,
+  `cod_iva_no_recuperable` int(11) NOT NULL,
+  `monto_total` int(11) NOT NULL,
+  `monto_neto_activo_fijo` varchar(11) COLLATE utf8_spanish_ci NOT NULL,
+  `iva_activo_fijo` int(11) NOT NULL,
+  `iva_uso_comun` int(11) NOT NULL,
+  `impto_sin_derecho_credito` int(11) NOT NULL,
+  `iva_no_retenido` int(11) NOT NULL,
+  `tabacos_puros` int(11) NOT NULL,
+  `tabacos_cigarrillos` int(11) NOT NULL,
+  `tabacos_elaborados` int(11) NOT NULL,
+  `NCE` int(11) NOT NULL,
+  `codigo_otro_impuesto` int(11) NOT NULL,
+  `valor_otro_impuesto` int(11) NOT NULL,
+  `tasa_otro_impuesto` decimal(7,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `documento_sistema`
+--
+
+CREATE TABLE `documento_sistema` (
+  `id_documento_sistema` bigint(20) UNSIGNED NOT NULL,
+  `numero` int(11) NOT NULL,
+  `correl` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `proveedor` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `rut` varchar(11) COLLATE utf8_spanish_ci NOT NULL,
+  `exento` int(11) NOT NULL,
+  `afecto` int(11) NOT NULL,
+  `iva_cd` int(11) NOT NULL,
+  `iva_sd` int(11) NOT NULL,
+  `otros_impuestos` int(11) NOT NULL,
+  `total` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `glosa_operacion`
 --
 
@@ -698,6 +754,21 @@ ALTER TABLE `comunas`
   ADD KEY `provincia_id` (`provincia_id`);
 
 --
+-- Indices de la tabla `documento_sii`
+--
+ALTER TABLE `documento_sii`
+  ADD PRIMARY KEY (`id_documento_sii`),
+  ADD UNIQUE KEY `folio` (`folio`),
+  ADD UNIQUE KEY `id_documento_sii` (`id_documento_sii`);
+
+--
+-- Indices de la tabla `documento_sistema`
+--
+ALTER TABLE `documento_sistema`
+  ADD PRIMARY KEY (`id_documento_sistema`),
+  ADD UNIQUE KEY `id_documento_sistema` (`id_documento_sistema`);
+
+--
 -- Indices de la tabla `glosa_operacion`
 --
 ALTER TABLE `glosa_operacion`
@@ -762,6 +833,18 @@ ALTER TABLE `boletas`
 --
 ALTER TABLE `comunas`
   MODIFY `comuna_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
+
+--
+-- AUTO_INCREMENT de la tabla `documento_sii`
+--
+ALTER TABLE `documento_sii`
+  MODIFY `id_documento_sii` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `documento_sistema`
+--
+ALTER TABLE `documento_sistema`
+  MODIFY `id_documento_sistema` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `libro_caja`
