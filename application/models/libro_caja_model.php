@@ -57,31 +57,170 @@ class Libro_caja_model extends CI_Model{
         }
     }
 
-    public function insert_csv($archivo) {
+    public function insert_csv_sii($archivo) {
+       
+        $fila = 0;
+        $data= array();
 
-        $fila = 1;
-        if (($gestor = fopen('./uploads/'.$archivo['file_name'], "r")) !== FALSE) {
-            while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+        if (($gestor = fopen('./uploads/'.$archivo['file_name'].'', "r")) !== FALSE) {
+            while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
                 $numero = count($datos);
                 $fila++;
-                for ($c=1; $c < $numero; $c++) {
-                    echo $datos[$c];
-                    // falta hacer el explode y luego array push
+
+                if ($fila>1) { //seleccionamos solo los valores y no lo nombres del campo
+                    for ($c=0; $c < $numero; $c++) {
+                        switch ($c) {
+                            case '0':
+                                $data["numero"] = $datos[$c];
+                            break;
+                            case '1':
+                                $data["tipo_documento"] = $datos[$c];
+                            break;
+                            case '2':
+                                $data["tipo_compra"] = $datos[$c];
+                            break;
+                            case '3':
+                                $data["rut_proveedor"] = $datos[$c];
+                            break;
+                            case '4':
+                                $data["razon_social"] = $datos[$c];
+                            break;
+                            case '5':
+                                $data["folio"] = $datos[$c];
+                            break;
+                            case '6':
+                                $data["fecha_documento"] = date("Y-m-d", strtotime(str_replace('/', '-', $datos[$c])));
+                            break;
+                            case '7':
+                                $data["monto_exento"] = $datos[$c];
+                            break;
+                            case '8':
+                                $data["monto_neto"] = $datos[$c];
+                            break;
+                            case '9':
+                                $data["monto_iva_recuperable"] = $datos[$c];
+                            break;
+                            case '10':
+                                $data["monto_iva_no_recuperable"] = $datos[$c];
+                            break;
+                            case '11':
+                                $data["cod_iva_no_recuperable"] = $datos[$c];
+                            break;
+                            case '12':
+                                $data["monto_total"] = $datos[$c];
+                            break;
+                            case '13':
+                                $data["monto_neto_activo_fijo"] = $datos[$c];
+                            break;
+                            case '14':
+                                $data["iva_activo_fijo"] = $datos[$c];
+                            break;
+                            case '15':
+                                $data["iva_uso_comun"] = $datos[$c];
+                            break;
+                            case '16':
+                                $data["impto_sin_derecho_credito"] = $datos[$c];
+                            break;
+                            case '17':
+                                $data["iva_no_retenido"] = $datos[$c];
+                            break;
+                            case '18':
+                                $data["tabacos_puros"] = $datos[$c];
+                            break;
+                            case '19':
+                                $data["tabacos_cigarrillos"] = $datos[$c];
+                            break;
+                            case '20':
+                                $data["tabacos_elaborados"] = $datos[$c];
+                            break;
+                            case '21':
+                                $data["NCE"] = $datos[$c];
+                            break;
+                            case '22':
+                                $data["codigo_otro_impuesto"] = $datos[$c];
+                            break;
+                            case '23':
+                                $data["valor_otro_impuesto"] = $datos[$c];
+                            break;
+                            case '24':
+                                $data["tasa_otro_impuesto"] = $datos[$c];
+                                $this->db->insert('documento_sii', $data);
+                                // echo $this->db->affected_rows();
+                            break;
+                            default:
+                                # code...
+                                break;
+                        }
+                    }
                 }
+                
+                
             }
+            
             fclose($gestor);
         }
+    }
 
-        // $data = array(
-        //     'numero' => $documento,
-        //     'id_usuario' => $this->session->userdata('idUsuario')
-        // );
+    public function insert_csv_sistema($archivo) {
+       
+        $fila = 0;
+        $data= array();
 
-        // if ( ! $this->db->insert('libro_caja', $data)){
-        //     return $error = $this->db->error();
-        // }else{
-        //     return 1;
-        // }
+        if (($gestor = fopen('./uploads/libro_de_compras_sistema.csv', "r")) !== FALSE) {
+            while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+                $numero = count($datos);
+                $fila++;
+
+                if ($fila>1) { //seleccionamos solo los valores y no lo nombres del campo
+                    for ($c=0; $c < $numero; $c++) {
+                        switch ($c) {
+                            case '0':
+                                $data["numero"] = $datos[$c];
+                            break;
+                            case '1':
+                                $data["correl"] = $datos[$c];
+                            break;
+                            case '2':
+                                $data["fecha"] = date("Y-m-d", strtotime(str_replace('/', '-', $datos[$c])));
+                            break;
+                            case '3':
+                                $data["proveedor"] = $datos[$c];
+                            break;
+                            case '4':
+                                $data["rut"] = $datos[$c];
+                            break;
+                            case '5':
+                                $data["exento"] = str_replace('.', '', $datos[$c]);
+                            break;
+                            case '6':
+                                $data["afecto"] = str_replace('.', '', $datos[$c]);
+                            break;
+                            case '7':
+                                $data["iva_cd"] = str_replace('.', '', $datos[$c]);
+                            break;
+                            case '8':
+                                $data["iva_sd"] = str_replace('.', '', $datos[$c]);
+                            break;
+                            case '9':
+                                $data["otros_impuestos"] = str_replace('.', '', $datos[$c]);
+                            break;
+                            case '10':
+                                $data["total"] = str_replace('.', '', $datos[$c]);
+                                $this->db->insert('documento_sistema', $data);
+                                // echo $this->db->affected_rows();
+                            break;
+                            default:
+                                # code...
+                                break;
+                        }
+                    }
+                }
+                
+                
+            }
+            
+            fclose($gestor);
+        }
     }
     public function get_tipo_documento() {
         $query = $this->db->get('tipo_documento');
