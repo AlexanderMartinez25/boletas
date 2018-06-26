@@ -158,6 +158,7 @@ class Libro_caja_model extends CI_Model{
             }
             
             fclose($gestor);
+            return $this->db->affected_rows();
         }
     }
 
@@ -166,7 +167,7 @@ class Libro_caja_model extends CI_Model{
         $fila = 0;
         $data= array();
 
-        if (($gestor = fopen('./uploads/libro_de_compras_sistema.csv', "r")) !== FALSE) {
+        if (($gestor = fopen('./uploads/'.$archivo['file_name'].'', "r")) !== FALSE) {
             while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
                 $numero = count($datos);
                 $fila++;
@@ -207,7 +208,6 @@ class Libro_caja_model extends CI_Model{
                             case '10':
                                 $data["total"] = str_replace('.', '', $datos[$c]);
                                 $this->db->insert('documento_sistema', $data);
-                                // echo $this->db->affected_rows();
                             break;
                             default:
                                 # code...
@@ -218,10 +218,75 @@ class Libro_caja_model extends CI_Model{
                 
                 
             }
-            
             fclose($gestor);
+            return $this->db->affected_rows();
+            
         }
     }
+
+    public function analizar_documentos()
+    {   
+        // consultamos los datos del sii
+        $query_sii = $this->db->get('documento_sii');
+
+        foreach ($query_sii->result() as $row)
+        {
+            // consultamos los datos del sistema donde el folio del SII sea igual al numero en SISTEMA
+            $this->db->WHERE('numero='.$row->folio);
+            $query_sistema = $this->db->get('documento_sistema');
+            
+            // esto indica si se encuentra en ambos documentos
+            if($row_sistema = $query_sistema->row()){
+
+                // si las fechas no coinciden
+                if (!($row_sistema->fecha==$row->fecha_documento)) {
+                    echo '<br>error en fecha '.$row->folio;
+                
+                // si los exentos no son iguales
+                }if (!($row_sistema->exento==$row->monto_exento)) {
+                    echo '<br>error en exento '.$row->folio;
+
+                // si el monto afecto no son iguales
+                }if (!($row_sistema->afecto==$row->monto_neto)) {
+                    echo '<br>error en monto afecto '.$row->folio;
+
+                // si el IVA recuperable no son iguales
+                }if (!($row_sistema->iva_cd==$row->monto_iva_recuperable)) {
+                    echo '<br>error en monto IVA CD '.$row->folio;
+                }
+                // si el IVA no recuperable no son iguales
+                if (!($row_sistema->iva_sd==$row->monto_iva_no_recuperable)) {
+                    echo '<br>error en monto IVA SD '.$row->folio;
+                }
+
+                // si el valor_otro_impuesto no son iguales
+                if (!($row_sistema->otros_impuestos==$row->valor_otro_impuesto)) {
+                    echo '<br>error en Valor Otros Impuestos '.$row->folio;
+                }
+
+                // si el monto_total no son iguales
+                if (!($row_sistema->total==$row->monto_total)) {
+                    echo '<br>error en Monto total '.$row->folio;
+                }
+
+                // si el monto_total no son iguales
+                if (!($row_sistema->afecto==$row->monto_neto_activo_fijo)) {
+                    echo '<br>error en monto_neto_activo_fijo '.$row->folio;
+                }
+                
+            }else {
+                echo '<br>folio del sii no se encuentra en sistema: '.$row->folio;
+                
+            }
+
+            
+        }
+
+echo 'Total Results: ' . $query_sii->num_rows();
+
+
+    }
+
     public function get_tipo_documento() {
         $query = $this->db->get('tipo_documento');
        

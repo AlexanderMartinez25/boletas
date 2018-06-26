@@ -65,27 +65,15 @@
         }
     }
 
-    // public function analizar($archivo){
+    public function analizar(){
 
-    //     // header('Content-type: application/json; charset=utf-8');
-    //     // $result = $this->libro_caja_model->insert_csv();
+        header('Content-type: application/json; charset=utf-8');
+        $result = $this->libro_caja_model->analizar_documentos();
 
-    //     // // si $result = 1, se actualizaron los datos 
-    //     // $info = array('error'=>0, 'insert_csv' => $result);
-    //     // echo json_encode($info);
-    //     // }
-    //     $fila = 1;
-    //     if (($gestor = fopen('./uploads/'.$archivo['file_name'], "r")) !== FALSE) {
-    //         while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
-    //             $numero = count($datos);
-    //             $fila++;
-    //             for ($c=1; $c < $numero; $c++) {
-    //                 echo $datos[$c];
-    //             }
-    //         }
-    //         fclose($gestor);
-    //     }
-    // }
+        // si $result = 1, se actualizaron los datos 
+        $info = array('error'=>0, 'insert_csv' => $result);
+        echo json_encode($info);
+    }
 
     public function do_upload()
     {   
@@ -97,7 +85,7 @@
 
         $this->load->library('upload', $config);
 
-        // header('Content-type: application/json; charset=utf-8');
+        header('Content-type: application/json; charset=utf-8');
 
         if (! $this->upload->do_upload('documento_sii')){
             $error = array('error' => $this->upload->display_errors());
@@ -115,14 +103,19 @@
         }
 
         // insertamos los datos en la tabla documento_sistema
-        // $data = $this->libro_caja_model->insert_csv_sistema( $this->upload->data() );
+        $data = $this->libro_caja_model->insert_csv_sistema( $this->upload->data() );
 
-        // $data = array('upload_data' => $this->upload->data(), 'analisis' =>$this->analizar());
-        // echo json_encode($data);
+        // al insertar correctamente ambos documentos procedemos a analizarlos
+        if ($data==1) {
+            $data = array('tabla_analisis' => $this->analizar());
+            echo json_encode($data);
+        }
+
+        
     }
 
     public function ver () {
-        echo $data = $this->libro_caja_model->insert_csv_sistema('libro_de_compras_sistema.csv');
+        $data =  $this->libro_caja_model->analizar_documentos();
 
     }
 

@@ -71,6 +71,13 @@ $(document).on('ready',function(){
         A.ladda( 'start' );
         var formData = new FormData(document.getElementById("analizaForm"));
 
+        swal({
+            title: "Analizando...",
+            showConfirmButton: false,
+            timer: 4500,
+            type: "info"
+        });
+
         $.ajax({                        
             url: form.attr('action'),
             type: form.attr('method'),
@@ -86,13 +93,8 @@ $(document).on('ready',function(){
 
                // si no hay errores de formulario y se inserta en la bd
                 if(data.upload_data){
-                    swal({
-                        title: "Datos insertados, analizando...",
-                        showConfirmButton: false,
-                        timer: 4500,
-                        type: "success"
-                    });
-                    $("#analizaForm")[0].reset();
+                    
+                    $("#analizaForm").attr('disabled','disabled');
 
                 }else{
                     let format = data.error.replace("<p>", ""),

@@ -237,7 +237,6 @@
                                                 </div> 
                                             </div>
                                         </div>
-                                            
                                         <div class="col-sm-12">
                                             <button class="ladda-button ladda-button-demo btn btn-primary pull-right" data-style="zoom-in" id='analizar' type="submit"><strong>Analizar</strong></button>
                                         </div>
