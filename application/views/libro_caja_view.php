@@ -243,6 +243,21 @@
                                         
                                     </div>
                                 </form>
+                                <div class="hr-line-dashed"></div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover hide" id="tabla-inconsistencias">
+                                        <thead>
+                                            <tr>
+                                                <th>Inconsistencias</th>
+                                                <th>Folio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id='body-inconsistencias'>
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

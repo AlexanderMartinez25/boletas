@@ -58,6 +58,7 @@ class Libro_caja_model extends CI_Model{
     }
 
     public function insert_csv_sii($archivo) {
+        $this->delete_datos_sii();
        
         $fila = 0;
         $data= array();
@@ -163,7 +164,8 @@ class Libro_caja_model extends CI_Model{
     }
 
     public function insert_csv_sistema($archivo) {
-       
+        $this->delete_datos_sistema();
+
         $fila = 0;
         $data= array();
 
@@ -224,6 +226,16 @@ class Libro_caja_model extends CI_Model{
         }
     }
 
+    public function delete_datos_sistema()
+    {
+        $this->db->empty_table('documento_sistema');
+    }
+
+    public function delete_datos_sii()
+    {
+        $this->db->empty_table('documento_sii');
+    }
+
     public function analizar_documentos()
     {   
         // consultamos los datos del sii
@@ -240,47 +252,40 @@ class Libro_caja_model extends CI_Model{
 
                 // si las fechas no coinciden
                 if (!($row_sistema->fecha==$row->fecha_documento)) {
-                    echo '<br>insonsistencia en fecha '.$row_sistema->id_documento_sistema;
+                    echo '<tr><td>Fecha </td><td>'.$row_sistema->id_documento_sistema.'</td></tr>';
                 
                 // si los exentos no son iguales
                 }if (!($row_sistema->exento==$row->monto_exento)) {
-                    echo '<br>insonsistencia en exento '.$row_sistema->id_documento_sistema;
+                    echo '<tr><td>Exento </td><td>'.$row_sistema->id_documento_sistema.'</td></tr>';
 
                 // si el monto afecto no son iguales
                 }if (!($row_sistema->afecto==$row->monto_neto)) {
-                    echo '<br>insonsistencia en monto afecto '.$row_sistema->id_documento_sistema;
+                    echo '<tr><td>Monto Afecto </td><td>'.$row_sistema->id_documento_sistema.'</td></tr>';
 
                 // si el IVA recuperable no son iguales
                 }if (!($row_sistema->iva_cd==$row->monto_iva_recuperable)) {
-                    echo '<br>insonsistencia en monto IVA CD '.$row_sistema->id_documento_sistema;
+                    echo '<tr><td>Monto IVA CD </td><td>'.$row_sistema->id_documento_sistema.'</td></tr>';
                 }
                 // si el IVA no recuperable no son iguales
                 if (!($row_sistema->iva_sd==$row->monto_iva_no_recuperable)) {
-                    echo '<br>insonsistencia en monto IVA SD '.$row_sistema->id_documento_sistema;
+                    echo '<tr><td>Monto IVA SD </td><td>'.$row_sistema->id_documento_sistema.'</td></tr>';
                 }
 
                 // si el valor_otro_impuesto no son iguales
                 if (!($row_sistema->otros_impuestos==$row->valor_otro_impuesto)) {
-                    echo '<br>insonsistencia en Valor Otros Impuestos '.$row_sistema->id_documento_sistema;
+                    echo '<tr><td>Valor Otros Impuestos </td><td>'.$row_sistema->id_documento_sistema.'</td></tr>';
                 }
 
                 // si el monto_total no son iguales
                 if (!($row_sistema->total==$row->monto_total)) {
-                    echo '<br>insonsistencia en Monto total '.$row_sistema->id_documento_sistema;
+                    echo '<tr><td>Monto Total </td><td>'.$row_sistema->id_documento_sistema.'</td></tr>';
                 }
 
-                // si el monto_total no son iguales
-                if (!($row_sistema->afecto==$row->monto_neto_activo_fijo)) {
-                    echo '<br>insonsistencia en monto_neto_activo_fijo '.$row_sistema->id_documento_sistema;
-                }
-                
             }else {
-                echo '<br>folio del sii no se encuentra en sistema: '.$row->numero;
+                echo '<tr><td>Folio del SII no se encuentra en sistema </td><td>'.$row->numero.'</td></tr>';
                 
             }
         }
-
-        // echo 'Total Results: ' . $query_sii->num_rows();
 
         // consultamos los datos del sii
         $query_sistema = $this->db->get('documento_sistema');
@@ -293,7 +298,7 @@ class Libro_caja_model extends CI_Model{
             
             // SI NO se encuentra en ambos documentos
             if(!($row_sistema = $query_sii->row())){
-                echo '<br>numero del sistema no se encuentra en SII: '.$row->numero;
+                echo '<tr><td>Folio del sistema no se encuentra en SII</td> <td>'.$row->numero.'</td></tr>';
             }
         }
 

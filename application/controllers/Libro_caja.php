@@ -66,13 +66,7 @@
     }
 
     public function analizar(){
-
-        header('Content-type: application/json; charset=utf-8');
-        $result = $this->libro_caja_model->analizar_documentos();
-
-        // si $result = 1, se actualizaron los datos 
-        $info = array('error'=>0, 'insert_csv' => $result);
-        echo json_encode($info);
+        return $this->libro_caja_model->analizar_documentos();
     }
 
     public function do_upload()
@@ -85,8 +79,9 @@
 
         $this->load->library('upload', $config);
 
-        header('Content-type: application/json; charset=utf-8');
-
+        // header('Content-type: application/json; charset=utf-8');
+        $this->deleteFiles();
+        
         if (! $this->upload->do_upload('documento_sii')){
             $error = array('error' => $this->upload->display_errors());
             echo json_encode($error);
@@ -107,8 +102,7 @@
 
         // al insertar correctamente ambos documentos procedemos a analizarlos
         if ($data==1) {
-            $data = array('tabla_analisis' => $this->analizar());
-            echo json_encode($data);
+            echo $this->analizar();
         }
 
         
@@ -117,6 +111,16 @@
     public function ver () {
         $data =  $this->libro_caja_model->analizar_documentos();
 
+    }
+
+    public function deleteFiles()
+    {
+        $files = glob('./uploads/*'); // get all file names
+        foreach($files as $file){ // iterate files
+        if(is_file($file))
+            unlink($file); // delete file
+        }
+        return 1;
     }
 
     private function _check_isvalidated(){

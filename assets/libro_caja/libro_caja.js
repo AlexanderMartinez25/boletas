@@ -74,7 +74,7 @@ $(document).on('ready',function(){
         swal({
             title: "Analizando...",
             showConfirmButton: false,
-            timer: 4500,
+            timer: 6500,
             type: "info"
         });
 
@@ -92,9 +92,13 @@ $(document).on('ready',function(){
                 $('#resp2').html('');       
 
                // si no hay errores de formulario y se inserta en la bd
-                if(data.upload_data){
+                if(data){
                     
-                    $("#analizaForm").attr('disabled','disabled');
+                    // $("#analizar").attr('disabled','disabled');
+                    $("#tabla-inconsistencias").removeClass('hide');
+                    
+                    $('#body-inconsistencias').html(data);
+                    crearTabla();
 
                 }else{
                     let format = data.error.replace("<p>", ""),
@@ -128,5 +132,24 @@ function toggle() {
         $('#fecha_exi').val('');
         $('#showExi').addClass('hide');
     }
+}
+
+function crearTabla() {
+    // si ya esta seteada la datatable
+    if ( ! $.fn.DataTable.isDataTable( '#tabla-inconsistencias' ) ) {
+        $('#tabla-inconsistencias').DataTable().destroy();
+    }
+
+    $('#tabla-inconsistencias').DataTable({
+        pageLength: 25,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            // { extend: 'copy'},
+            // {extend: 'csv'},
+            { extend: 'excel', title: 'Inconsistencias' },
+            // { extend: 'pdf', title: 'Inconsistencias' },
+        ]
+    });
 }
 

@@ -33,6 +33,7 @@
         if($ruta=="Libro de Caja"){
             echo"<link href=".base_url('../assets/html/css/plugins/datapicker/datepicker3.css')." rel='stylesheet'>
                 <link href=".base_url('../assets/html/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css')." rel='stylesheet'>
+                <link href=".base_url('../assets/html/css/plugins/dataTables/datatables.min.css')." rel='stylesheet'>
             ";
         }
         
