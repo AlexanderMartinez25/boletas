@@ -32,7 +32,7 @@
 
                 <a href="#"><small>¿Olvido Contraseña?</small></a>
             </form>
-            <p class="m-t">d<small>Desarrollado por VMC Tecnolía &copy; 2018</small> </p>
+            <p class="m-t"><small>Desarrollado por VMC Tecnolía &copy; 2018</small> </p>
         </div>
     </div>
 </body>
